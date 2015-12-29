@@ -1,6 +1,7 @@
 'use strict';
 
-const fs            = require('fs');
+const fs            = require('fs'),
+      Firebase      = require('firebase');
 
 const getFlights    = require('./getFlights'),
       delayDetector = require('./delayDetector'),
@@ -20,11 +21,16 @@ const scrape = (type) => {
     })
     .then(sortFlights)
     .then((flights) => {
+      // Write flights to disk
       try {
         fs.accessSync(`server/cache/${type}.json`, fs.F_OK);
         fs.rename(`server/cache/${type}.json`, `server/cache/${type}-old.json`);
       } catch (e) {}
       fs.writeFile(`server/cache/${type}.json`, JSON.stringify(flights));
+
+      // Post flights to Firebase
+      const firebaseClient = new Firebase(`${process.env.FIREBASE_URL}/${type}`)
+      firebaseClient.set(flights);
     });
 }
 
