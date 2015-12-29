@@ -16,7 +16,9 @@ module.exports = (type) => {
   getFlights(`${url}/yesterday`, flights)
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
-    .then(delayDetector)
+    .then((flights) => {
+      return flights.map((flight) => delayDetector(flight));
+    })
     .then(sortFlights)
     .then((flights) => {
       fs.writeFile(`server/cache/${type}.json`, JSON.stringify(flights));
