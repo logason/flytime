@@ -8,7 +8,7 @@ module.exports = (flights) => {
     const status = flight.status;
     const date = flight.date;
 
-    if(status.indexOf('Landed') >= 0
+    if (status.indexOf('Landed') >= 0
     || status.indexOf('Confirm') >= 0
     || status.indexOf('Departed') >= 0
     || status.indexOf('Estimat') >= 0) {

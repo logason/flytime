@@ -1,3 +1,4 @@
+'use strict';
 
 module.exports = (flights) => {
   return flights.sort((a, b) => {

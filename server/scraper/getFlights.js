@@ -28,7 +28,7 @@ module.exports = (url, flights) => {
             'status': '',
             'id': '',
             'delay': 0,
-            'timestamp': ''
+            'timestamp': '',
           };
 
           $(this).children('td').each(function(index) {
