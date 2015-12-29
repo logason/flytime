@@ -12,7 +12,9 @@
   "homepage": "http://flytime.is",
   "private": true,
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "mocha server/scraper/tests",
+    "test:watch": "npm test -- --watch"
   },
   "dependencies": {
     "cheerio": "0.19.0",
@@ -20,6 +22,8 @@
     "superagent": "1.6.1"
   },
   "devDependencies": {
-    "eslint": "1.10.3"
+    "eslint": "1.10.3",
+    "expect": "1.13.4",
+    "mocha": "2.3.4"
   }
 }
