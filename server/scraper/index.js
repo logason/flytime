@@ -2,7 +2,8 @@
 
 const fs            = require('fs');
 
-const getFlights    = require('./getFlights');
+const getFlights    = require('./getFlights'),
+      delayDetector = require('./delayDetector');
 
 const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
@@ -14,6 +15,7 @@ module.exports = (type) => {
   getFlights(`${url}/yesterday`, flights)
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
+    .then(delayDetector)
     .then((flights) => {
       fs.writeFile(`server/cache/${type}.json`, JSON.stringify(flights));
     });
