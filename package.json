@@ -1,0 +1,19 @@
+{
+  "name": "flytime",
+  "version": "0.2.0",
+  "description": "App to follow flight's status updates on Keflavik International Airport",
+  "author": {
+    "name": "Sölvi Logason",
+    "email": "logason@gmail.com",
+    "url": "http://solvi.is"
+  },
+  "main": "server/index.js",
+  "license": "MIT",
+  "homepage": "http://flytime.is",
+  "private": true,
+  "dependencies": {
+    "cheerio": "0.19.0",
+    "moment": "2.10.6",
+    "superagent": "1.6.1"
+  }
+}
