@@ -8,9 +8,8 @@ const getFlights    = require('./getFlights'),
 
 const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
-module.exports = (type) => {
+const scrape = (type) => {
   const url = `${TIMETABLES_URL}/${type}/`;
-
   const flights = [];
 
   getFlights(`${url}/yesterday`, flights)
@@ -21,6 +20,21 @@ module.exports = (type) => {
     })
     .then(sortFlights)
     .then((flights) => {
+      try {
+        fs.accessSync(`server/cache/${type}.json`, fs.F_OK);
+        fs.rename(`server/cache/${type}.json`, `server/cache/${type}-old.json`);
+      } catch (e) {}
       fs.writeFile(`server/cache/${type}.json`, JSON.stringify(flights));
     });
+}
+
+module.exports = () => {
+  scrape('arrivals');
+  scrape('departures');
+
+  // Scrape and update data every 2 minutes
+  setInterval(() => scrape('arrivals'), 2 * 60000);
+  setInterval(() => scrape('departures'), 2 * 60000);
+
+  console.log(new Date(), 'Scraper running');
 }

@@ -2,4 +2,5 @@
 
 const scraper = require('./scraper');
 
-scraper('Arrivals');
+// Start the scraper
+scraper();
