@@ -4,6 +4,8 @@ const Firebase = require('firebase');
 
 const scraper = require('./scraper');
 
+
+
 const ref = new Firebase(process.env.FIREBASE_URL);
 ref.authWithCustomToken(process.env.FIREBASE_SECRET, (error, authData) => {
   if (error) {
@@ -13,5 +15,6 @@ ref.authWithCustomToken(process.env.FIREBASE_SECRET, (error, authData) => {
 
     // Start the scraper
     scraper();
+    require('./notifier/watchers');
   }
 });

@@ -6,7 +6,8 @@
     "blockBindings": true,
     "classes": true,
     "templateStrings": true,
-    "arrowFunctions": true
+    "arrowFunctions": true,
+    "experimentalObjectRestSpread": true
   },
   "rules": {
     "comma-dangle": [2, "always-multiline"],

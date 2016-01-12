@@ -11,9 +11,8 @@ const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
 const scrape = (type) => {
   const url = `${TIMETABLES_URL}/${type}/`;
-  const flights = [];
 
-  getFlights(`${url}/yesterday`, flights)
+  getFlights(`${url}/yesterday`, [])
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
     .then((flights) => {
