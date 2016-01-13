@@ -23,7 +23,7 @@ module.exports = (subject, body, list) => {
   const message = {
     'html': body,
     'subject': subject,
-    'from_email': 'noreply@flytime.is',
+    'from_email': 'flytime@flytime.is',
     'from_name': 'FlyTime',
     'to': followers,
     'preserve_recipients': false,
