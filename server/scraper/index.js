@@ -11,7 +11,7 @@ const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
 const scrape = (type) => {
   const url = `${TIMETABLES_URL}/${type}/`;
-
+  console.log(new Date(), `Fetching ${type}`);
   getFlights(`${url}/yesterday`, [])
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
@@ -30,6 +30,7 @@ const scrape = (type) => {
       // Post flights to Firebase
       const firebaseClient = new Firebase(`${process.env.FIREBASE_URL}/${type}`)
       firebaseClient.set(flights);
+      console.log(new Date(), `Finished fetching ${type}`);
     });
 }
 
@@ -38,8 +39,8 @@ module.exports = () => {
   scrape('departures');
 
   // Scrape and update data every 2 minutes
-  setInterval(() => scrape('arrivals'), 2 * 60000);
-  setInterval(() => scrape('departures'), 2 * 60000);
+  setInterval(() => scrape('arrivals'), 60000);
+  setInterval(() => scrape('departures'), 60000);
 
   console.log(new Date(), 'Scraper running');
 }

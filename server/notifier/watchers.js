@@ -7,14 +7,10 @@ const renderEmail = require('./renderEmail');
 const sendEmails = require('./sendEmails');
 
 const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
-arrivalsWatcher.on('child_changed', (updatedFlight) => {
-  checkForUpdate('arrivals', updatedFlight);
-});
+arrivalsWatcher.on('child_changed', (updatedFlight) => checkForUpdate('arrivals', updatedFlight));
 
 const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
-departuresWatcher.on('child_changed', (updatedFlight) => {
-  checkForUpdate('departures', updatedFlight);
-});
+departuresWatcher.on('child_changed', (updatedFlight) => checkForUpdate('departures', updatedFlight));
 
 const checkForUpdate = (flightType, updatedFlight) => {
   const oldFlight = JSON.parse(fs.readFileSync(`server/cache/${flightType}-old.json`))[updatedFlight.key()];
@@ -41,7 +37,7 @@ const checkForUpdate = (flightType, updatedFlight) => {
         }
       });
     }
-  } else {
-    // Not the same flight - Error
   }
+
+  return;
 }
