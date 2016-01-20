@@ -13,7 +13,7 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
 
   let preHeader;
   if (isFollowConfirmation) {
-    preHeader = 'We will notify you everytime the status of your flight changes.'
+    preHeader = 'We will notify you everytime the status of the flight is updated.'
   } else if (isArrival) {
     preHeader = `Flight ${flightNum} from ${location} to Keflavik has been updated | `;
   } else {

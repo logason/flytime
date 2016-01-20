@@ -2,15 +2,14 @@
 
 const validator = require('validator'),
       mandrill  = require('mandrill-api/mandrill'),
-      ip        = require('ip'),
       _         = require('lodash');
 
 const mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_SECRET);
 
 module.exports = (subject, body, list) => {
 
-  if (ip.address() !== process.env.SERVER_IP) {
-    console.log('Im not the server so am not allowed to send emails!');
+  if (process.env.NODE_ENV !== 'production') {
+    console.log("I'm not the server so am not allowed to send emails!");
     return;
   }
 
