@@ -11,10 +11,8 @@ module.exports = (subject, body, list) => {
 
   if (ip.address() !== process.env.SERVER_IP) {
     console.log('Im not the server so am not allowed to send emails!');
-    // return;
+    return;
   }
-
-  console.log(list);
 
   const followers = _.map(list, (contact) => {
     if (validator.isEmail(contact)) {

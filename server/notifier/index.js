@@ -23,7 +23,6 @@ const checkForUpdate = (flightType, updatedFlight) => {
       const followersData = new Firebase(`${process.env.FIREBASE_URL}/followers/${newFlight.id}`);
       followersData.once('value', (data) => {
         const followersList = data.val();
-
         if (followersList) {
           const email = renderEmail(newFlight, flightType);
           sendEmails(`${newFlight.flightNum}: ${newFlight.status}`, email, followersList);
@@ -34,7 +33,6 @@ const checkForUpdate = (flightType, updatedFlight) => {
             newFlightStatus.indexOf('Landed') >= 0 ||
             newFlightStatus.indexOf('Departed') >= 0) {
               followersData.remove();
-
           }
         }
       });
