@@ -6,7 +6,9 @@ const Firebase    = require('firebase'),
       _           = require('lodash');
 
 const scraper     = require('./scraper'),
-      notifier    = require('./notifier');
+      notifier    = require('./notifier'),
+      renderEmail = require('./utils/renderEmail'),
+      sendEmails  = require('./utils/sendEmails');
 
 const firebaseRef = new Firebase(process.env.FIREBASE_URL);
 const app = express();
@@ -65,7 +67,11 @@ app.post('/follow/email', (req, res) => {
           res.status(500).send('Could not follow flight');
           return;
         }
-        // XXX Send follow success email
+
+        const successEmailSubject = `You are following flight ${flight.flightNum} on Flytime.is`;
+        const successEmailBody = renderEmail(flight, type, email, true);
+        sendEmails(successEmailSubject, successEmailBody, [email]);
+
         res.status(201).send({flightId: flightId, email: email, message: 'Follow success'});
         return;
       });
