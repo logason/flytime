@@ -18,6 +18,7 @@
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
+    "body-parser": "1.14.2",
     "cheerio": "0.19.0",
     "express": "4.13.3",
     "firebase": "2.3.2",
