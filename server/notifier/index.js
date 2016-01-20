@@ -3,14 +3,16 @@
 const Firebase = require('firebase');
 const fs = require('fs');
 
-const renderEmail = require('./renderEmail');
-const sendEmails = require('./sendEmails');
+const renderEmail = require('../utils/renderEmail');
+const sendEmails = require('../utils/sendEmails');
 
-const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
-arrivalsWatcher.on('child_changed', (updatedFlight) => checkForUpdate('arrivals', updatedFlight));
+module.exports = () => {
+  const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
+  arrivalsWatcher.on('child_changed', (updatedFlight) => checkForUpdate('arrivals', updatedFlight));
 
-const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
-departuresWatcher.on('child_changed', (updatedFlight) => checkForUpdate('departures', updatedFlight));
+  const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
+  departuresWatcher.on('child_changed', (updatedFlight) => checkForUpdate('departures', updatedFlight));
+}
 
 const checkForUpdate = (flightType, updatedFlight) => {
   const oldFlight = JSON.parse(fs.readFileSync(`server/cache/${flightType}-old.json`))[updatedFlight.key()];
@@ -18,7 +20,6 @@ const checkForUpdate = (flightType, updatedFlight) => {
 
   if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
     if (oldFlight.status !== newFlight.status) {
-
       const followersData = new Firebase(`${process.env.FIREBASE_URL}/followers/${newFlight.id}`);
       followersData.once('value', (data) => {
         const followersList = data.val();
@@ -33,10 +34,13 @@ const checkForUpdate = (flightType, updatedFlight) => {
             newFlightStatus.indexOf('Landed') >= 0 ||
             newFlightStatus.indexOf('Departed') >= 0) {
               followersData.remove();
+
           }
         }
       });
     }
+  } else {
+    // XXX Log error
   }
 
   return;

@@ -2,7 +2,8 @@
 
 const validator = require('validator'),
       mandrill  = require('mandrill-api/mandrill'),
-      ip        = require('ip');
+      ip        = require('ip'),
+      _         = require('lodash');
 
 const mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_SECRET);
 
@@ -10,10 +11,12 @@ module.exports = (subject, body, list) => {
 
   if (ip.address() !== process.env.SERVER_IP) {
     console.log('Im not the server so am not allowed to send emails!');
-    return;
+    // return;
   }
 
-  const followers = list.map((contact) => {
+  console.log(list);
+
+  const followers = _.map(list, (contact) => {
     if (validator.isEmail(contact)) {
       return {email: contact};
     }

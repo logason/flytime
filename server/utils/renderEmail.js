@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (flight, type, follower) => {
+module.exports = (flight, type, follower, isFollowConfirmation) => {
   const location    = flight.location,
         scheduled   = flight.scheduled,
         estimated   = flight.estimated,
@@ -11,16 +11,28 @@ module.exports = (flight, type, follower) => {
   const airlineLogo = `${appUrl}/img/airlines/${flight.airline.toLowerCase().replace(' ','%20')}.png`;
   const isArrival = type === 'arrivals';
 
+  let preHeader;
+  if (isFollowConfirmation) {
+    preHeader = 'We will notify you everytime the status of your flight changes.'
+  } else if (isArrival) {
+    preHeader = `Flight ${flightNum} from ${location} to Keflavik has been updated | `;
+  } else {
+    preHeader = `Flight ${flightNum} from Kefalvik to ${location} has been updated | `;
+  }
+
   return `
     <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
     <html xmlns='http://www.w3.org/1999/xhtml' xmlns='http://www.w3.org/1999/xhtml'>
       <head>
         <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
         <meta content='width=device-width' name='viewport'>
-        <title>Flight ${flightNum} updated</title>
+        <title>${isFollowConfirmation ? `You are following flight ${flightNum} on Flytime.is` : `Flight ${flightNum} updated`}</title>
       </head>
     	<body style='width: 100%; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; color: #607D8B; margin: 0; padding: 50px 0 0;'>
-    		<center style='width: 100%; min-width: 580px;'>
+        <span style='color: #fff; font-size: 0; display: none !important;'>
+          ${preHeader}
+        </span>
+        <center style='width: 100%; min-width: 580px;'>
     		  <table class='container' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;'>
     		    <tr align='left' style='vertical-align: top; text-align: left; padding: 0;'>
     		      <td align='left' class='wrapper last' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse; vertical-align: top; text-align: left; position: relative; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; height: 30px; margin: 0; padding: 10px 0px 0px;' valign='top'>
