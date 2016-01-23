@@ -9,7 +9,6 @@
     "destructuring": true,
     "experimentalObjectRestSpread": true,
     "jsx": true,
-    "modules": true,
     "objectLiteralComputedProperties": true,
     "objectLiteralShorthandMethods": true,
     "objectLiteralShorthandProperties": true,
