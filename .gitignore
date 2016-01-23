@@ -2,3 +2,4 @@ node_modules
 server/cache
 npm-debug.log
 .env
+static
