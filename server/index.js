@@ -13,11 +13,12 @@ const scraper       = require('./scraper'),
       renderEmail   = require('./utils/renderEmail'),
       sendEmails    = require('./utils/sendEmails'),
       api           = require('./api'),
-      webpackConfig = require('../webpack.config.js');
+      webpackConfig = require('../webpack-development.config.js');
 
 const firebaseRef = new Firebase(process.env.FIREBASE_URL);
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
+const html = fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf-8');
 
 firebaseRef.authWithCustomToken(process.env.FIREBASE_SECRET, (error, authData) => {
   if (error) {
@@ -44,11 +45,11 @@ if (!isProduction) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 } else {
-  app.use('/_assets', express.static(path.join(__dirname, '../static')));
+  app.use('/_assets', express.static(path.join(__dirname, '../static'), {maxAge: '100y'}));
 }
 
 app.get('*', (req, res) => {
-  res.send(fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf-8'));
+  res.send(html);
 });
 
 app.listen(process.env.APP_PORT, (error) => {
