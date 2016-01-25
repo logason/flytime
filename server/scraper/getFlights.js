@@ -9,7 +9,7 @@ module.exports = (url, flights) => {
   return new Promise((resolve, reject) => {
     request(url, (error, response) => {
       if (error) {
-        reject(new Error(err));
+        reject(new Error(error));
       } else {
         resolve(flights.concat(extractFlights(response.text)));
       }

@@ -63,6 +63,12 @@ module.exports = (options) => {
     );
   }
 
+  if (options.dev) {
+    plugins.push(new webpack.DefinePlugin({
+      __DEV__: options.dev,
+    }));
+  }
+
   return {
     devtool: options.devtool,
     entry,

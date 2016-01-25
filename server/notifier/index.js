@@ -15,7 +15,8 @@ module.exports = () => {
 }
 
 const checkForUpdate = (flightType, updatedFlight) => {
-  const oldFlight = JSON.parse(fs.readFileSync(`server/cache/${flightType}-old.json`))[updatedFlight.key()];
+  const oldFlights = JSON.parse(fs.readFileSync(`server/cache/${flightType}-old.json`));
+  const oldFlight = oldFlights.length && oldFlights[updatedFlight.key()];
   const newFlight = updatedFlight.val();
 
   if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
