@@ -1,4 +1,3 @@
-
 import constants from 'constants';
 
 export const add = (flightId, flightType) => ({
