@@ -1,11 +1,11 @@
 'use strict';
 
-const fs            = require('fs'),
-      Firebase      = require('firebase');
+const fs = require('fs');
+const Firebase = require('firebase');
 
-const getFlights    = require('./getFlights'),
-      delayDetector = require('./delayDetector'),
-      sortFlights   = require('./sortFlights');
+const getFlights = require('./getFlights');
+const delayDetector = require('./delayDetector');
+const sortFlights = require('./sortFlights');
 
 const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
@@ -15,24 +15,24 @@ const scrape = (type) => {
   getFlights(`${url}/yesterday`, [])
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
-    .then((flights) => {
-      return flights.map((flight) => delayDetector(flight));
-    })
+    .then((flights) => flights.map((flight) => delayDetector(flight)))
     .then(sortFlights)
     .then((flights) => {
       // Write flights to disk
       try {
         fs.accessSync(`server/cache/${type}.json`, fs.F_OK);
         fs.rename(`server/cache/${type}.json`, `server/cache/${type}-old.json`);
-      } catch (e) {}
+      } catch (e) {
+        // XXX Log error
+      }
       fs.writeFile(`server/cache/${type}.json`, JSON.stringify(flights));
 
       // Post flights to Firebase
-      const firebaseClient = new Firebase(`${process.env.FIREBASE_URL}/${type}`)
+      const firebaseClient = new Firebase(`${process.env.FIREBASE_URL}/${type}`);
       firebaseClient.set(flights);
       console.log(new Date(), `Finished fetching ${type}`);
     });
-}
+};
 
 module.exports = () => {
   scrape('arrivals');
@@ -43,4 +43,4 @@ module.exports = () => {
   setInterval(() => scrape('departures'), 60000);
 
   console.log(new Date(), 'Scraper running');
-}
+};

@@ -6,17 +6,16 @@ const fs = require('fs');
 const renderEmail = require('../utils/renderEmail');
 const sendEmails = require('../utils/sendEmails');
 
-module.exports = () => {
-  const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
-  arrivalsWatcher.on('child_changed', (updatedFlight) => checkForUpdate('arrivals', updatedFlight));
-
-  const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
-  departuresWatcher.on('child_changed', (updatedFlight) => checkForUpdate('departures', updatedFlight));
-}
-
 const checkForUpdate = (flightType, updatedFlight) => {
-  const oldFlights = JSON.parse(fs.readFileSync(`server/cache/${flightType}-old.json`));
-  const oldFlight = oldFlights.length && oldFlights[updatedFlight.key()];
+  let oldFlight = {};
+  try {
+    fs.accessSync(`server/cache/${flightType}-old.json`, fs.F_OK);
+    const oldFlights = fs.readFileSync(`server/cache/${flightType}-old.json`);
+    oldFlight = JSON.parse(oldFlights).length && oldFlights[updatedFlight.key()];
+  } catch (e) {
+    return;
+  }
+
   const newFlight = updatedFlight.val();
 
   if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
@@ -33,7 +32,7 @@ const checkForUpdate = (flightType, updatedFlight) => {
           if (newFlightStatus.indexOf('Cancelled') >= 0 ||
             newFlightStatus.indexOf('Landed') >= 0 ||
             newFlightStatus.indexOf('Departed') >= 0) {
-              followersData.remove();
+            followersData.remove();
           }
         }
       });
@@ -43,4 +42,12 @@ const checkForUpdate = (flightType, updatedFlight) => {
   }
 
   return;
-}
+};
+
+module.exports = () => {
+  const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
+  arrivalsWatcher.on('child_changed', (newFlight) => checkForUpdate('arrivals', newFlight));
+
+  const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
+  departuresWatcher.on('child_changed', (newFlight) => checkForUpdate('departures', newFlight));
+};

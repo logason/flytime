@@ -1,8 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {Router, Route, browserHistory} from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
 
 import configureStore from './utils/configureStore';
 

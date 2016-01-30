@@ -1,9 +1,12 @@
 'use strict';
 
-const Firebase  = require('firebase'),
-      express   = require('express'),
-      bodyParser  = require('body-parser'),
-      _         = require('lodash');
+const Firebase = require('firebase');
+const express = require('express');
+const bodyParser = require('body-parser');
+const _ = require('lodash');
+
+const renderEmail = require('../utils/renderEmail');
+const sendEmails = require('../utils/sendEmails');
 
 module.exports = () => {
   const api = express();
@@ -11,9 +14,9 @@ module.exports = () => {
   api.use(bodyParser.json());
 
   api.post('/follow/email', (req, res) => {
-    const type      = req.body.type,
-          flightId  = req.body.flightId,
-          email     = req.body.email;
+    const type = req.body.type;
+    const flightId = req.body.flightId;
+    const email = req.body.email;
 
     if (!type || !flightId || !email) {
       res.status(422).send('Missing parameter');
@@ -25,8 +28,7 @@ module.exports = () => {
 
     const flightsRef = new Firebase(`${process.env.FIREBASE_URL}/${type}`);
     flightsRef.once('value', (flights) => {
-
-      const flight = _.find(flights.val(), (flight) => flight.id === flightId);
+      const flight = _.find(flights.val(), (item) => item.id === flightId);
       if (!flight) {
         res.status(422).send('Invalid flight ID');
         return;
@@ -34,9 +36,8 @@ module.exports = () => {
 
       const flightFollowersRef = new Firebase(`${process.env.FIREBASE_URL}/followers/${flightId}`);
       flightFollowersRef.once('value', (followersList) => {
-
         if (_.find(followersList.val(), (follower) => follower === email)) {
-          res.status(200).send({flightId: flightId, email: email, message: 'Already following'});
+          res.status(200).send({ flightId, email, message: 'Already following' });
           return;
         }
 
@@ -51,13 +52,12 @@ module.exports = () => {
           const successEmailBody = renderEmail(flight, type, email, true);
           sendEmails(successEmailSubject, successEmailBody, [email]);
 
-          res.status(201).send({flightId: flightId, email: email, message: 'Follow success'});
+          res.status(201).send({ flightId, email, message: 'Follow success' });
           return;
         });
       });
-
-    })
-  }, (error) => {
+    });
+  }, (error, res) => {
     if (error) {
       // XXX Log error
       res.status(500).send();
@@ -71,9 +71,8 @@ module.exports = () => {
 
     const flightFollowersRef = new Firebase(`${process.env.FIREBASE_URL}/followers/${flightId}`);
     flightFollowersRef.once('value', (followersList) => {
-
       if (!_.find(followersList.val(), (follower) => follower === email)) {
-        res.status(404).send({flightId: flightId, email: email, message: 'Not following'});
+        res.status(404).send({ flightId, email, message: 'Not following' });
         return;
       }
 
@@ -86,7 +85,7 @@ module.exports = () => {
               return;
             }
             // XXX Return unfollow success page
-            res.status(200).send({flightId: flightId, email: email, message: 'Unfollow success'});
+            res.status(200).send({ flightId, email, message: 'Unfollow success' });
             return;
           });
         }
@@ -95,4 +94,4 @@ module.exports = () => {
   });
 
   return api;
-}
+};

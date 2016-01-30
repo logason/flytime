@@ -1,5 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import * as flightActions from 'actions/flights';
 
@@ -13,19 +13,30 @@ export default class App extends Component {
   static get propTypes() {
     return {
       flights: PropTypes.object.isRequired,
+      dispatch: PropTypes.object.isRequired,
     };
-  };
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  handleAddFlight(event, type) {
+    event.preventDefault();
+    this.props.dispatch(flightActions.add('hello-world', type));
+  }
 
   render() {
-    const {flights} = this.props;
-    console.log('props', this.props.flights.toJS());
+    const { flights } = this.props;
     return (
       <div className={styles.container}>
         <div>
           <h1>Arrivals</h1>
           <ul>
             {flights && flights.get('arrivals').toList().map((flight) => {
-              <li>flight.get('flightNum')</li>
+              return (
+                <li>{flight.get('flightNum')}</li>
+              );
             })}
           </ul>
           <a
@@ -39,16 +50,13 @@ export default class App extends Component {
           <h1>Departures</h1>
           <ul>
             {flights && flights.get('departures').toList().map((flight) => {
-              <li>flight.get('flightNum')</li>
+              return (
+                <li>{flight.get('flightNum')}</li>
+              );
             })}
           </ul>
         </div>
       </div>
     );
-  };
-
-  handleAddFlight(event, type) {
-    event.preventDefault();
-    this.props.dispatch(flightActions.add('hello-world', type));
   }
 }

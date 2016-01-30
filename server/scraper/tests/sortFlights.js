@@ -7,20 +7,20 @@ describe('sortFlights', () => {
   it('should sort the flights by their id', () => {
     const flights = [
       {
-        'flightNum': 'FI002',
-        'id': '2',
+        flightNum: 'FI002',
+        id: '2',
       },
       {
-        'flightNum': 'FI004',
-        'id': '4',
+        flightNum: 'FI004',
+        id: '4',
       },
       {
-        'flightNum': 'FI001',
-        'id': '1',
+        flightNum: 'FI001',
+        id: '1',
       },
       {
-        'flightNum': 'FI003',
-        'id': '3',
+        flightNum: 'FI003',
+        id: '3',
       },
     ];
 

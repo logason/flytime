@@ -5,4 +5,4 @@ export default {
     ADD: null,
     REMOVE: null,
   }),
-}
+};

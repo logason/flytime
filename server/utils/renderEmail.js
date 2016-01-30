@@ -1,25 +1,26 @@
 'use strict';
 
 module.exports = (flight, type, follower, isFollowConfirmation) => {
-  const location    = flight.location,
-        scheduled   = flight.scheduled,
-        estimated   = flight.estimated,
-        status      = flight.status,
-        flightNum   = flight.flightNum;
+  const location = flight.location;
+  const scheduled = flight.scheduled;
+  const status = flight.status;
+  const flightNum = flight.flightNum;
 
-  const appUrl      = process.env.APP_URL;
-  const airlineLogo = `${appUrl}/img/airlines/${flight.airline.toLowerCase().replace(' ','%20')}.png`;
+  const appUrl = process.env.APP_URL;
+  const airlineUri = flight.airline.toLowerCase().replace(' ', '%20');
+  const airlineLogo = `${appUrl}/img/airlines/${airlineUri}.png`;
   const isArrival = type === 'arrivals';
 
   let preHeader;
   if (isFollowConfirmation) {
-    preHeader = 'We will notify you everytime the status of the flight is updated.'
+    preHeader = 'We will notify you everytime the status of the flight is updated.';
   } else if (isArrival) {
     preHeader = `Flight ${flightNum} from ${location} to Keflavik has been updated | `;
   } else {
     preHeader = `Flight ${flightNum} from Kefalvik to ${location} has been updated | `;
   }
 
+  /*eslint-disable */
   return `
     <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
     <html xmlns='http://www.w3.org/1999/xhtml' xmlns='http://www.w3.org/1999/xhtml'>
@@ -98,5 +99,6 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
     		</center>
     	</body>
     </html>
-  `
-}
+  `;
+  /*eslint-enable */
+};

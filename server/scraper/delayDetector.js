@@ -1,20 +1,20 @@
-'use strict';
+"use strict";
 
 const moment = require('moment');
 
 module.exports = (flight) => {
   const status = flight.status;
   const date = flight.date;
+  const newFlight = flight;
 
   if (status.indexOf('Landed') >= 0
   || status.indexOf('Confirm') >= 0
   || status.indexOf('Departed') >= 0
   || status.indexOf('Estimat') >= 0) {
-
     const currentDate = new Date(`${date} ${status.split(' ')[1]}`);
     const scheduledDate = new Date(`${date} ${flight.scheduled}`);
+    const scheduledTime = moment(scheduledDate);
     let currentTime = moment(currentDate);
-    let scheduledTime = moment(scheduledDate);
 
     // We need to check whether flight was delayed over midnight or not. To do so we add 12 hours
     // to the real time and check if scheduledTime is still bigger after that. By doing this we
@@ -31,12 +31,12 @@ module.exports = (flight) => {
     }
 
     const delay = (currentTime - scheduledTime) / (1000 * 60);
-    flight.delay = delay;
 
+    newFlight.delay = delay;
     if (status === 'Cancelled') {
-      flight.delay = '';
+      newFlight.delay = '';
     }
   }
 
-  return flight;
-}
+  return newFlight;
+};
