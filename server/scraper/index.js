@@ -5,7 +5,6 @@ const Firebase = require('firebase');
 
 const getFlights = require('./getFlights');
 const delayDetector = require('./delayDetector');
-const sortFlights = require('./sortFlights');
 
 const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
@@ -16,7 +15,6 @@ const scrape = (type) => {
     .then((flights) => getFlights(url, flights))
     .then((flights) => getFlights(`${url}/tomorrow`, flights))
     .then((flights) => flights.map((flight) => delayDetector(flight)))
-    .then(sortFlights)
     .then((flights) => {
       // Write flights to disk
       try {
