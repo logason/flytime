@@ -25,11 +25,11 @@ export default createReducer(initialState, {
 
   [constants.FLIGHTS.GET_SUCCESS]: (state, { flightType, flights }) => {
     state = state.setIn([flightType, 'isLoading'], false);
-    const normalizedFlights = {};
+    let flightsMap = Immutable.OrderedMap();
     flights.map((flight) => {
-      normalizedFlights[flight.id] = flight;
+      flightsMap = flightsMap.set(flight.id, Immutable.fromJS(flight));
     });
-    return state.setIn([flightType, 'items'], Immutable.fromJS(normalizedFlights));
+    return state.setIn([flightType, 'items'], flightsMap);
   },
 
   [constants.FLIGHTS.GET_ERROR]: (state, { flightType, error }) => {
@@ -38,7 +38,7 @@ export default createReducer(initialState, {
   },
 
   [constants.FLIGHTS.UPDATE]: (state, { flightType, flight }) => {
-    return state.updateIn([flightType, flight.id], Immutable.Map(), Immutable.fromJS(flight));
+    return state.setIn([flightType, 'items', flight.id], Immutable.fromJS(flight));
   },
 
 });

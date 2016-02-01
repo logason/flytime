@@ -25,40 +25,39 @@ export default class App extends Component {
     this.props.dispatch(flightActions.connectData('arrivals'));
   }
 
-  handleAddFlight(event, type) {
-    event.preventDefault();
-    this.props.dispatch(flightActions.add('hello-world', type));
-  }
-
   render() {
     const { flights } = this.props;
     return (
       <div className={styles.container}>
         <div>
           <h1>Arrivals</h1>
-          <ul>
-            {flights && flights.getIn(['arrivals', 'items']).toList().map((flight) => {
-              return (
-                <li>{flight.get('flightNum')}</li>
-              );
-            })}
-          </ul>
-          <a
-            href="#"
-            onClick={(event) => this.handleAddFlight(event, 'arrivals')}
-          >
-            Add
-          </a>
-        </div>
-        <div>
-          <h1>Departures</h1>
-          <ul>
-            {flights && flights.getIn(['departures', 'items']).toList().map((flight) => {
-              return (
-                <li>{flight.get('flightNum')}</li>
-              );
-            })}
-          </ul>
+          <table>
+            <thead>
+              <tr>
+                <td></td>
+                <td>Scheduled</td>
+                <td>Airline</td>
+                <td>Flight No</td>
+                <td>From</td>
+                <td>Status</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {flights && flights.getIn(['arrivals', 'items']).toList().map((flight) => {
+                return (
+                  <tr>
+                    <td></td>
+                    <td>{flight.get('scheduled')}</td>
+                    <td>{flight.get('airline')}</td>
+                    <td>{flight.get('flightNum')}</td>
+                    <td>{flight.get('location')}</td>
+                    <td>{flight.get('status')}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     );
