@@ -66,6 +66,7 @@ module.exports = (options) => {
   if (options.dev) {
     plugins.push(new webpack.DefinePlugin({
       __DEV__: options.dev,
+      __FIREBASE_URL__: JSON.stringify(process.env.FIREBASE_URL),
     }));
   }
 

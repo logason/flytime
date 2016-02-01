@@ -13,7 +13,7 @@ export default class App extends Component {
   static get propTypes() {
     return {
       flights: PropTypes.object.isRequired,
-      dispatch: PropTypes.object.isRequired,
+      dispatch: PropTypes.func.isRequired,
     };
   }
 
