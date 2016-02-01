@@ -1,13 +1,36 @@
+import Firebase from 'firebase';
+
 import constants from 'constants';
 
-export const add = (flightId, flightType) => ({
-  type: constants.FLIGHTS.ADD,
-  flightId,
-  flightType,
-});
+export function connectData(flightType) {
+  return (dispatch) => {
+    const flightData = new Firebase(`${__FIREBASE_URL__}/${flightType}`);
 
-export const remove = (flightId, flightType) => ({
-  type: constants.FLIGHTS.REMOVE,
-  flightId,
-  flightType,
-});
+    dispatch({
+      type: constants.FLIGHTS.GET,
+      flightType,
+    });
+
+    flightData.once('value', (data) => {
+      dispatch({
+        type: constants.FLIGHTS.GET_SUCCESS,
+        flightType,
+        flights: data.val(),
+      });
+    }, (error) => {
+      dispatch({
+        type: constants.FLIGHTS.GET_ERROR,
+        flightType,
+        error,
+      });
+    });
+
+    flightData.on('child_changed', (data) => {
+      dispatch({
+        type: constants.FLIGHTS.UPDATE,
+        flightType,
+        flight: data.val(),
+      });
+    });
+  };
+}

@@ -21,6 +21,10 @@ export default class App extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.dispatch(flightActions.connectData('arrivals'));
+  }
+
   handleAddFlight(event, type) {
     event.preventDefault();
     this.props.dispatch(flightActions.add('hello-world', type));
@@ -33,7 +37,7 @@ export default class App extends Component {
         <div>
           <h1>Arrivals</h1>
           <ul>
-            {flights && flights.get('arrivals').toList().map((flight) => {
+            {flights && flights.getIn(['arrivals', 'items']).toList().map((flight) => {
               return (
                 <li>{flight.get('flightNum')}</li>
               );
@@ -49,7 +53,7 @@ export default class App extends Component {
         <div>
           <h1>Departures</h1>
           <ul>
-            {flights && flights.get('departures').toList().map((flight) => {
+            {flights && flights.getIn(['departures', 'items']).toList().map((flight) => {
               return (
                 <li>{flight.get('flightNum')}</li>
               );
