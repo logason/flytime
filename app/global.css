@@ -1,0 +1,19 @@
+
+:global(html), :global(body) {
+  margin: 0;
+  padding: 0;
+}
+
+:global(*), :global(*:after), :global(*:before) {
+  box-sizing: border-box;
+}
+
+:global(.antialiased) {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:global(a) {
+  text-decoration: inherit;
+  color: inherit;
+}

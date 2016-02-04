@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 
 import configureStore from './utils/configureStore';
-
 import App from './App';
+import 'global.css';
 
 const store = configureStore();
 

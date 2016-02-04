@@ -1,0 +1,20 @@
+:root {
+
+  /* COLORS */
+  --color-orange: #FF5722;
+  --color-grey: #CED0D3;
+  --color-text: #3E4A5B;
+  --color-white: #fff;
+
+  /* FONT SIZE */
+  --font-size-small: 14px;
+  --font-size-medium: 18px;
+  --font-size-large: 24px;
+
+  /* FONT WEIGHT */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-medium: 400;
+  --font-weight-bold: 700;
+
+}
