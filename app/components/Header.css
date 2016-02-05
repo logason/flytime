@@ -23,11 +23,9 @@
   font-weight: var(--font-weight-medium);
 }
 
-.logo {
+.clock {
   width: 30px;
   height: 30px;
-  border-radius: 100%;
-  border: 6px solid var(--color-white);
   margin-right: 10px;
 }
 

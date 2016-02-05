@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
 
+import Clock from './Clock';
 import styles from './Header.css';
 
 export default class Header extends Component {
@@ -26,7 +27,7 @@ export default class Header extends Component {
             onClick={(event) => this._handleToggleTypeSelector(event)}
             className={styles.typeSelector}
           >
-            <div className={styles.logo} />
+            <Clock />
             <div className={`${styles.type} antialiased`}>KEF Arrivals</div>
           </a>
           <input
