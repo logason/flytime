@@ -44,9 +44,19 @@ export default class Header extends Component {
             Departures
           </a>
         )}
-        <div className={styles.labels}>
-
-        </div>
+        <table className={styles.labels}>
+          <thead>
+            <tr>
+              <td className={styles.margin} />
+              <td className={styles.scheduled}>Scheduled</td>
+              <td className={styles.airline}>Airline</td>
+              <td className={styles.flightNum}>Flight num</td>
+              <td className={styles.location}>From</td>
+              <td className={styles.status}>Status</td>
+              <td className={styles.margin} />
+            </tr>
+          </thead>
+        </table>
       </Headroom>
     );
   }

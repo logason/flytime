@@ -42,9 +42,9 @@ if (!isProduction) {
   });
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-} else {
-  app.use('/_assets', express.static(path.join(__dirname, '../static'), { maxAge: '100y' }));
 }
+
+app.use('/_assets', express.static(path.join(__dirname, '../static'), { maxAge: '100y' }));
 
 app.get('*', (req, res) => {
   res.send(html);

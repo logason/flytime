@@ -9,7 +9,7 @@
 
 .header {
   display: flex;
-  height: 80px;
+  height: 70px;
 }
 
 .typeSelector {
@@ -62,8 +62,8 @@
   position: fixed;
   z-index: 100;
   left: 0;
-  top: 80px;
-  height: 80px;
+  top: 70px;
+  height: 70px;
   width: 50vw;
   display: flex;
   align-items: center;
@@ -76,9 +76,35 @@
 
 .labels {
   position: fixed;
-  top: 80px;
-  left: 0;
-  right: 0;
-  height: 30px;
+  top: 70px;
+  width: 100%;
+  padding: 5px 0;
   background: var(--color-grey);
+  font-size: var(--font-size-small);
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+
+.margin {
+  width: 2.5%;
+}
+
+.scheduled {
+  width: 10%;
+}
+
+.airline {
+  width: 10%;
+}
+
+.flightNum {
+  width: 10%;
+}
+
+.location {
+  width: 35%;
+}
+
+.status {
+  width: 25%;
 }

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Header from './components/Header';
+import Flights from './components/Flights';
 import * as flightActions from 'actions/flights';
 
 import styles from './App.css';
@@ -31,24 +32,7 @@ export default class App extends Component {
     return (
       <div className={styles.container}>
         <Header />
-        <div>
-          <table>
-            <tbody>
-              {flights && flights.getIn(['arrivals', 'items']).toList().map((flight) => {
-                return (
-                  <tr>
-                    <td></td>
-                    <td>{flight.get('scheduled')}</td>
-                    <td>{flight.get('airline')}</td>
-                    <td>{flight.get('flightNum')}</td>
-                    <td>{flight.get('location')}</td>
-                    <td>{flight.get('status')}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <Flights flights={flights} />
       </div>
     );
   }

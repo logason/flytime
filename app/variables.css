@@ -2,9 +2,10 @@
 
   /* COLORS */
   --color-orange: #FF5722;
-  --color-grey: #CED0D3;
   --color-text: #3E4A5B;
   --color-white: #fff;
+  --color-grey: #CED0D3;
+  --color-grey-light: #FAFAFA;
 
   /* FONT SIZE */
   --font-size-small: 14px;

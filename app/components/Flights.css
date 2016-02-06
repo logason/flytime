@@ -1,0 +1,67 @@
+@import 'variables.css';
+
+.flightTable {
+  margin-top: 30px;
+  width: 100%;
+  border: 0;
+
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+.flight {
+  height: 75px;
+  cursor: pointer;
+}
+
+.flight > * {
+  padding-left: 6px;
+  border-bottom: 1px solid var(--color-grey);
+}
+
+.margin {
+  width: 2.5%;
+  border-bottom: 1px solid transparent;
+}
+
+.scheduled {
+  width: 10%;
+  padding-left: 5px;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-medium);
+}
+
+.airline {
+  width: 10%;
+}
+
+.airline img {
+  max-width: 60%;
+  max-height: 40px;
+}
+
+.flightNum {
+  width: 10%;
+}
+
+.location {
+  width: 35%;
+}
+
+.status {
+  width: 25%;
+}
+
+.flight:hover {
+  background-color: var(--color-grey-light);
+}
+
+.flight_landed, .flight_landed:hover {
+  color: color(var(--color-text) alpha(50%));
+  background: transparent;
+  cursor: default;
+}
+
+.flight_landed td img {
+  opacity: 0.5;
+}
