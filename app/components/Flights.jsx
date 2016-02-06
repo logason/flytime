@@ -30,6 +30,10 @@ export default class Flight extends Component {
   }
 
   _renderFlight(flight) {
+    const now = new Date();
+    const flightDay = flight.get('date').split('. ')[0];
+    const isToday = now.getDate() === parseInt(flightDay, 10);
+
     return (
       <tr
         className={classNames(styles.flight, {
@@ -37,6 +41,16 @@ export default class Flight extends Component {
         })}
       >
         <td className={styles.margin} />
+        <td className={styles.date}>
+          {isToday ? (
+            <div className={styles.date__today}>Today</div>
+          ) : (
+            <span>
+              <div className={styles.date__day}>{flight.get('date').split('. ')[0]}</div>
+              <div className={styles.date__month}>{flight.get('date').split('. ')[1]}</div>
+            </span>
+          )}
+        </td>
         <td className={styles.scheduled}>{flight.get('scheduled')}</td>
         <td className={styles.airline}>
           <img src={`/_assets/img/${flight.get('airline').replace(' ', '').replace('.', '').toLowerCase()}.png`}></img>

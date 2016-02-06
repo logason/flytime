@@ -24,11 +24,32 @@
   border-bottom: 1px solid transparent;
 }
 
-.scheduled {
-  width: 10%;
-  padding-left: 5px;
+.date {
+  width: 5%;
+  text-align: center;
+}
+
+.date__today {
+  font-size: var(--font-size-small);
   font-weight: var(--font-weight-bold);
+}
+
+.date__day {
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+}
+
+.date__month {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.scheduled {
+  width: 6%;
+  padding-left: 5px;
   font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-bold);
 }
 
 .airline {
@@ -45,7 +66,7 @@
 }
 
 .location {
-  width: 35%;
+  width: 34%;
 }
 
 .status {
