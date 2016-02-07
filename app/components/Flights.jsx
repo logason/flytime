@@ -23,7 +23,7 @@ export default class Flight extends Component {
     return (
       <table className={styles.flightTable}>
         <tbody>
-          {flights && flights.map((flight) => this._renderFlight(flight))}
+          {flights && flights.get('items').map((flight) => this._renderFlight(flight))}
         </tbody>
       </table>
     );

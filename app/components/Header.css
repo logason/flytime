@@ -1,12 +1,5 @@
 @import 'variables.css';
 
-:global(.headroom) {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-}
-
 .header {
   display: flex;
   height: 70px;

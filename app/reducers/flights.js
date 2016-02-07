@@ -28,11 +28,25 @@ export default createReducer(initialState, {
   [constants.FLIGHTS.GET_SUCCESS]: (state, { flightType, flights }) => {
     state = state.setIn([flightType, 'isLoading'], false);
     let flightsMap = Immutable.OrderedMap();
-    flights.map((flight) => {
+    let lastFinishedFlightIndex = 0;
+
+    flights.map((flight, index) => {
       flight.isOver = isFlightOver(flight);
+      if (flight.isOver) {
+        lastFinishedFlightIndex = index;
+      }
       flightsMap = flightsMap.set(flight.id, Immutable.fromJS(flight));
     });
-    return state.setIn([flightType, 'items'], flightsMap);
+
+    const currentHour = new Date().getHours();
+    let expireHour = currentHour - 4;
+    if (expireHour < 0) {
+      expireHour = 24 + expireHour;
+    }
+
+    return state.setIn([flightType, 'items'], flightsMap.take(lastFinishedFlightIndex + 1).reverse().takeUntil((flight) => {
+      return flight.get('status').split(' ')[1].split(':')[0] <= expireHour;
+    }).reverse().concat(flightsMap.takeLast(flightsMap.size - lastFinishedFlightIndex)));
   },
 
   [constants.FLIGHTS.GET_ERROR]: (state, { flightType, error }) => {

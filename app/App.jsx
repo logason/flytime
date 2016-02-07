@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 import Header from 'components/Header';
 import Flights from 'components/Flights';
@@ -47,7 +48,10 @@ export default class App extends Component {
     const bindedSearchActions = bindActionCreators(searchActions, dispatch);
     return (
       <div className={styles.container}>
-        <Header type={this.props.type} flightActions={bindedFlightActions} searchActions={bindedSearchActions} />
+        <Header
+          type={this.props.type}
+          searchActions={bindedSearchActions}
+        />
         <Flights flights={flights} actions={bindedFlightActions} />
       </div>
     );

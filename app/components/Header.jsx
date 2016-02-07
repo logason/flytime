@@ -10,7 +10,6 @@ export default class Header extends Component {
   static get propTypes() {
     return {
       type: PropTypes.string.isRequired,
-      flightActions: PropTypes.object.isRequired,
       searchActions: PropTypes.object.isRequired,
     };
   }
