@@ -36,6 +36,7 @@ export default class Flight extends Component {
 
     return (
       <tr
+        key={flight.get('id')}
         className={classNames(styles.flight, {
           [styles.flight_over]: flight.get('isOver'),
         })}

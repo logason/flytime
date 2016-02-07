@@ -12,7 +12,7 @@ export const getVisibleFlights = createSelector(
   getSearchQuery,
   (flights, searchQuery) => {
     if (!searchQuery) {
-      return flights;
+      return flights.toList();
     }
     return Immutable.fromJS(fuzzy.filter(searchQuery, flights, { extract: (item) => {
       return `${item.get('airline')}
@@ -21,6 +21,6 @@ export const getVisibleFlights = createSelector(
               ${item.get('location')}
               ${item.get('scheduled')}
               ${item.get('status')}`;
-    } }).map((item) => item.original));
+    } }).map((item) => item.original)).toList();
   }
 );
