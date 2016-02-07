@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Headroom from 'react-headroom';
+import { Link } from 'react-router';
 
 import Clock from './Clock';
 import styles from './Header.css';
@@ -8,6 +9,9 @@ export default class Header extends Component {
 
   static get propTypes() {
     return {
+      type: PropTypes.string.isRequired,
+      flightActions: PropTypes.object.isRequired,
+      searchActions: PropTypes.object.isRequired,
     };
   }
 
@@ -19,6 +23,7 @@ export default class Header extends Component {
   }
 
   render() {
+    const { type } = this.props;
     return (
       <Headroom>
         <div className={styles.header}>
@@ -28,21 +33,22 @@ export default class Header extends Component {
             className={styles.typeSelector}
           >
             <Clock />
-            <div className={`${styles.type} antialiased`}>KEF Arrivals</div>
+            <div className={`${styles.type} antialiased`}>KEF {type === 'arrivals' ? 'Arrivals' : 'Departures'}</div>
           </a>
           <input
             placeholder="Search for flight..."
             className={`${styles.search} antialiased`}
+            onChange={(event) => this._handleSearch(event)}
           />
         </div>
         {this.state.displayDropdown && (
-          <a
-            href="#"
-            onClick={(event) => this._handlePickType(event)}
-            className={`${styles.styleSelector} antialiased`}
+          <Link
+            to={`/kef/${type === 'arrivals' ? 'departures' : 'arrivals'}`}
+            onClick={() => this._handlePickType()}
+            className={`${styles.typeDropdown} antialiased`}
           >
-            Departures
-          </a>
+            {type === 'arrivals' ? 'KEF Departures' : 'KEF Arrivals'}
+          </Link>
         )}
         <table className={styles.labels}>
           <thead>
@@ -66,8 +72,11 @@ export default class Header extends Component {
     this.setState({ displayDropdown: !this.state.displayDropdown });
   }
 
-  _handlePickType(event) {
-    event.preventDefault();
+  _handlePickType() {
     this.setState({ displayDropdown: false });
+  }
+
+  _handleSearch(event) {
+    this.props.searchActions.search(event.target.value);
   }
 }

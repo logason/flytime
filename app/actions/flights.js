@@ -2,9 +2,11 @@ import Firebase from 'firebase';
 
 import constants from 'constants';
 
+let flightData;
+
 export function connectData(flightType) {
   return (dispatch) => {
-    const flightData = new Firebase(`${__FIREBASE_URL__}/${flightType}`);
+    flightData = new Firebase(`${__FIREBASE_URL__}/${flightType}`);
 
     dispatch({
       type: constants.FLIGHTS.GET,

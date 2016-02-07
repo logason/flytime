@@ -77,12 +77,12 @@
   background-color: var(--color-grey-light);
 }
 
-.flight_landed, .flight_landed:hover {
+.flight_over, .flight_over:hover {
   color: color(var(--color-text) alpha(50%));
   background: transparent;
   cursor: default;
 }
 
-.flight_landed td img {
+.flight_over td img {
   opacity: 0.5;
 }

@@ -21,6 +21,10 @@
   color: var(--color-white);
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-medium);
+  transition: all var(--transition-time);
+}
+.typeSelector:hover {
+  background-color: color(var(--color-orange) shade(10%));
 }
 
 .clock {
@@ -30,6 +34,7 @@
 }
 
 .type {
+  margin-left: 10px;
   position: relative;
 }
 
@@ -58,7 +63,7 @@
   font-weight: var(--font-weight-light);
 }
 
-.styleSelector {
+.typeDropdown {
   position: fixed;
   z-index: 100;
   left: 0;
@@ -68,10 +73,13 @@
   display: flex;
   align-items: center;
   background: var(--color-orange);
-  padding: 0 2vw 0 calc(2vw + 40px);
+  padding: 0 2vw 0 calc(2vw + 50px);
   color: var(--color-white);
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-medium);
+}
+.typeDropdown:hover {
+  background-color: color(var(--color-orange) shade(10%));
 }
 
 .labels {

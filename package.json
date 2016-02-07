@@ -27,6 +27,7 @@
     "express": "4.13.3",
     "firebase": "2.3.2",
     "fs": "0.0.2",
+    "fuzzy": "0.1.1",
     "immutable": "3.7.6",
     "lodash": "4.0.0",
     "mandrill-api": "1.0.45",
@@ -39,6 +40,7 @@
     "redux": "3.0.5",
     "redux-immutablejs": "0.0.8",
     "redux-thunk": "1.0.3",
+    "reselect": "2.0.3",
     "superagent": "1.6.1",
     "validator": "4.5.0"
   },

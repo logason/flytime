@@ -1,21 +1,29 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Header from './components/Header';
-import Flights from './components/Flights';
+import Header from 'components/Header';
+import Flights from 'components/Flights';
+
 import * as flightActions from 'actions/flights';
+import * as searchActions from 'actions/search';
+
+import { getVisibleFlights, getCurrentFlightType } from 'selectors/flights.js';
 
 import styles from './App.css';
 
 @connect(state => ({
-  flights: state.flights,
+  flights: getVisibleFlights(state),
+  type: getCurrentFlightType(state),
 }))
 export default class App extends Component {
 
   static get propTypes() {
     return {
       flights: PropTypes.object.isRequired,
+      type: PropTypes.string.isRequired,
       dispatch: PropTypes.func.isRequired,
+      params: PropTypes.object.isRequired,
     };
   }
 
@@ -24,15 +32,23 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(flightActions.connectData('arrivals'));
+    this.props.dispatch(flightActions.connectData(this.props.params.type));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.type !== nextProps.params.type) {
+      this.props.dispatch(flightActions.connectData(nextProps.params.type));
+    }
   }
 
   render() {
-    const { flights } = this.props;
+    const { flights, dispatch } = this.props;
+    const bindedFlightActions = bindActionCreators(flightActions, dispatch);
+    const bindedSearchActions = bindActionCreators(searchActions, dispatch);
     return (
       <div className={styles.container}>
-        <Header />
-        <Flights flights={flights} />
+        <Header type={this.props.type} flightActions={bindedFlightActions} searchActions={bindedSearchActions} />
+        <Flights flights={flights} actions={bindedFlightActions} />
       </div>
     );
   }

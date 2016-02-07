@@ -7,5 +7,12 @@ export default createConstants({
     GET: null,
     GET_SUCCESS: null,
     GET_ERROR: null,
+    SEARCH: null,
   }),
+
+  SEARCH: keyMirror({
+    SET_QUERY: null,
+    CLEAR: null,
+  }),
+
 });

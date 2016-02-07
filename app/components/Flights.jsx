@@ -23,7 +23,7 @@ export default class Flight extends Component {
     return (
       <table className={styles.flightTable}>
         <tbody>
-          {flights && flights.getIn(['arrivals', 'items']).toList().map((flight) => this._renderFlight(flight))}
+          {flights && flights.map((flight) => this._renderFlight(flight))}
         </tbody>
       </table>
     );
@@ -37,7 +37,7 @@ export default class Flight extends Component {
     return (
       <tr
         className={classNames(styles.flight, {
-          [styles.flight_landed]: flight.get('status').indexOf('Landed') >= 0,
+          [styles.flight_over]: flight.get('isOver'),
         })}
       >
         <td className={styles.margin} />
