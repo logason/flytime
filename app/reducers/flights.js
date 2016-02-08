@@ -32,19 +32,21 @@ export default createReducer(initialState, {
 
     flights.map((flight, index) => {
       flight.isOver = isFlightOver(flight);
-      if (flight.isOver) {
+      if (flight.isOver && flight.status.indexOf('Cancelled') < 0) {
         lastFinishedFlightIndex = index;
       }
       flightsMap = flightsMap.set(flight.id, Immutable.fromJS(flight));
     });
 
     const currentHour = new Date().getHours();
-    let expireHour = currentHour - 4;
+    let expireHour = currentHour - 3;
     if (expireHour < 0) {
       expireHour = 24 + expireHour;
     }
-
     return state.setIn([flightType, 'items'], flightsMap.take(lastFinishedFlightIndex + 1).reverse().takeUntil((flight) => {
+      if (flight.get('status').indexOf('Cancelled') >= 0) {
+        return false;
+      }
       return flight.get('status').split(' ')[1].split(':')[0] <= expireHour;
     }).reverse().concat(flightsMap.takeLast(flightsMap.size - lastFinishedFlightIndex)));
   },
