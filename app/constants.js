@@ -15,4 +15,9 @@ export default createConstants({
     CLEAR: null,
   }),
 
+  MODAL: keyMirror({
+    OPEN: null,
+    CLOSE: null,
+  }),
+
 });

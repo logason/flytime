@@ -8,6 +8,8 @@ export default class Flight extends Component {
   static get propTypes() {
     return {
       flights: PropTypes.object,
+      type: PropTypes.string,
+      modalActions: PropTypes.object,
     };
   }
 
@@ -40,6 +42,7 @@ export default class Flight extends Component {
         className={classNames(styles.flight, {
           [styles.flight_over]: flight.get('isOver'),
         })}
+        onClick={() => this._handleOpenFlight(flight.get('isOver'), flight.get('id'))}
       >
         <td className={styles.margin} />
         <td className={styles.date}>
@@ -62,5 +65,12 @@ export default class Flight extends Component {
         <td className={styles.margin} />
       </tr>
     );
+  }
+
+  _handleOpenFlight(isOver, flightId) {
+    if (isOver) {
+      return;
+    }
+    this.props.modalActions.open({ flightId, flightType: this.props.type });
   }
 }

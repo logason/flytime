@@ -2,6 +2,6 @@
 
 module.exports = require('./make-webpack-config')({
   devtool: 'source-map',
-	hot: true,
+  hot: true,
   dev: true,
 });

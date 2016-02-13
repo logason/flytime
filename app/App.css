@@ -6,3 +6,11 @@
   font-family: 'Lato', sans-serif;
   color: var(--color-text);
 }
+
+.content {
+  transition: filter 250ms;
+}
+
+.blur {
+  filter: blur(2px);
+}
