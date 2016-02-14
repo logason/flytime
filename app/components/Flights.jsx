@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { browserHistory } from 'react-router'
 
 import styles from './Flights.css';
 
@@ -71,6 +72,7 @@ export default class Flight extends Component {
     if (isOver) {
       return;
     }
+    browserHistory.push(`/kef/${this.props.type}/${flightId}`);
     this.props.modalActions.open({ flightId, flightType: this.props.type });
   }
 }

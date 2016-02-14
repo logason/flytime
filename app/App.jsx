@@ -42,6 +42,11 @@ export default class App extends Component {
 
   componentWillMount() {
     this.props.dispatch(flightActions.connectData(this.props.params.type));
+
+    if (this.props.params.flightId) {
+      const { flightId, type } = this.props.params;
+      this.props.dispatch(modalActions.open({ flightId, flightType: type }));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,6 +103,7 @@ export default class App extends Component {
                     <Modal
                       key={key}
                       flight={data.flight}
+                      type={type}
                       modalActions={bindedModalActions}
                       flightActions={bindedFlightActions}
                     />

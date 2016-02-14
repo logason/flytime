@@ -17,6 +17,7 @@ if (typeof document !== 'undefined') {
       <span>
         <Router history={browserHistory}>
           <Route path="/:airport/:type" component={App} />
+          <Route path="/:airport/:type/:flightId" component={App} />
           <Redirect from="/kef" to="/kef/arrivals" />
           <Redirect from="/" to="/kef/arrivals" />
         </Router>
