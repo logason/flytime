@@ -8,12 +8,12 @@ const initialState = Immutable.fromJS({
   arrivals: {
     isLoading: false,
     error: null,
-    items: Immutable.OrderedMap(),
+    items: Immutable.Map(),
   },
   departures: {
     isLoading: false,
     error: null,
-    items: Immutable.OrderedMap(),
+    items: Immutable.Map(),
   },
 });
 
