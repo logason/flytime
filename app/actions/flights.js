@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 import request from 'superagent';
+import ga from 'react-ga';
 
 import constants from 'constants';
 
@@ -7,7 +8,7 @@ let flightData;
 
 export function connectData(flightType) {
   return (dispatch) => {
-    flightData = new Firebase(`${__FIREBASE_URL__}/${flightType}`);
+    flightData = new Firebase(`${FIREBASE_URL}/${flightType}`);
 
     dispatch({
       type: constants.FLIGHTS.GET,
@@ -45,7 +46,7 @@ export function follow(flightType, flightId, email) {
       flightType,
       flightId,
     });
-
+    ga.event({ category: 'Flight', action: 'FOLLOW', label: flightId });
     request
       .post('/api/follow/email')
       .send({
@@ -61,6 +62,10 @@ export function follow(flightType, flightId, email) {
             flightId,
             email,
           }), 200);
+          ga.event({ category: 'Flight', action: 'FOLLOW_SUCCESS', label: flightId, nonInteraction: true });
+        } else {
+          // XXX handle error
+          ga.event({ category: 'Flight', action: 'FOLLOW_ERROR', label: flightId, nonInteraction: true });
         }
       });
   };
@@ -73,6 +78,7 @@ export function unfollow(flightType, flightId, email) {
       flightType,
       flightId,
     });
+    ga.event({ category: 'Flight', action: 'UNFOLLOW', label: flightId });
 
     request
       .get(`/api/unfollow/email/${flightId}/${email}`)
@@ -84,6 +90,10 @@ export function unfollow(flightType, flightId, email) {
             flightId,
             email,
           }), 200);
+          ga.event({ category: 'Flight', action: 'UNFOLLOW_SUCCESS', label: flightId, nonInteraction: true });
+        } else {
+          // XXX handle error
+          ga.event({ category: 'Flight', action: 'UNFOLLOW_ERROR', label: flightId, nonInteraction: true });
         }
       });
   };

@@ -4,6 +4,7 @@
   },
   "globals": {
     "__DEV__": true,
-    "__FIREBASE_URL__": true
+    "FIREBASE_URL": true,
+    "GA_TRACKING_CODE": true,
   }
 }

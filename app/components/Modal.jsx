@@ -30,7 +30,7 @@ export default class Modal extends Component {
 
     if (!flight && isLoading) {
       return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={(event) => this.handleClose(event)}>
           <div className={styles.loadingModal}>
             <LoadingIndicator size={40} orange />
           </div>
@@ -38,7 +38,7 @@ export default class Modal extends Component {
       );
     } else if (!flight) {
       return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={(event) => this.handleClose(event)}>
           <div className={styles.errorModal}>
             <span className={styles.errorCode}>404</span>
             <span className={styles.errorMessage}>Whoops, could not find requested flight.</span>
@@ -57,6 +57,7 @@ export default class Modal extends Component {
     return (
       <div className={styles.container} onClick={(event) => this.handleClose(event)}>
         <div className={styles.modal} onClick={(event) => event.stopPropagation()}>
+          <div className={styles.close} />
           <div className={styles.map} />
           <div className={styles.details}>
             <div
