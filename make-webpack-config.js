@@ -1,12 +1,11 @@
 'use strict';
 
-const path              = require('path'),
-      webpack           = require('webpack'),
-      HtmlWebpackPlugin = require('html-webpack-plugin'),
-      ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (options) => {
-
   const entry = [
     './app',
   ];
@@ -20,7 +19,7 @@ module.exports = (options) => {
     }),
   ];
 
-  const loaders =  [];
+  const loaders = [];
 
   if (options.hot) {
     entry.push('webpack-hot-middleware/client');
@@ -87,7 +86,7 @@ module.exports = (options) => {
       modulesDirectories: ['node_modules', 'app'],
       extensions: ['', '.js', '.jsx', '.css'],
     },
-    module: {loaders},
+    module: { loaders },
     postcss: [
       require('postcss-import')({
         path: 'app',
@@ -97,4 +96,4 @@ module.exports = (options) => {
       require('autoprefixer'),
     ],
   };
-}
+};

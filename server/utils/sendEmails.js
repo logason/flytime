@@ -8,7 +8,6 @@ const mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_SECRET);
 
 module.exports = (subject, body, list) => {
   if (process.env.NODE_ENV !== 'production') {
-    console.log("I'm not the server so am not allowed to send emails!");
     return;
   }
 
