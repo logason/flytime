@@ -1,4 +1,5 @@
 import Firebase from 'firebase';
+import request from 'superagent';
 
 import constants from 'constants';
 
@@ -34,5 +35,56 @@ export function connectData(flightType) {
         flight: data.val(),
       });
     });
+  };
+}
+
+export function follow(flightType, flightId, email) {
+  return (dispatch) => {
+    dispatch({
+      type: constants.FLIGHTS.FOLLOW,
+      flightType,
+      flightId,
+    });
+
+    request
+      .post('/api/follow/email')
+      .send({
+        type: flightType,
+        flightId,
+        email,
+      })
+      .end((error) => {
+        if (!error) {
+          setTimeout(() => dispatch({
+            type: constants.FLIGHTS.FOLLOW_SUCCESS,
+            flightType,
+            flightId,
+            email,
+          }), 200);
+        }
+      });
+  };
+}
+
+export function unfollow(flightType, flightId, email) {
+  return (dispatch) => {
+    dispatch({
+      type: constants.FLIGHTS.UNFOLLOW,
+      flightType,
+      flightId,
+    });
+
+    request
+      .get(`/api/unfollow/email/${flightId}/${email}`)
+      .end((error) => {
+        if (!error) {
+          setTimeout(() => dispatch({
+            type: constants.FLIGHTS.UNFOLLOW_SUCCESS,
+            flightType,
+            flightId,
+            email,
+          }), 200);
+        }
+      });
   };
 }

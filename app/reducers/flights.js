@@ -61,6 +61,27 @@ export default createReducer(initialState, {
     return state.setIn([flightType, 'items', flight.id], Immutable.fromJS(flight));
   },
 
+  [constants.FLIGHTS.FOLLOW]: (state, { flightType, flightId }) => {
+    return state.setIn([flightType, 'items', flightId, 'follow', 'loading'], true);
+  },
+
+  [constants.FLIGHTS.FOLLOW_SUCCESS]: (state, { flightType, flightId, email }) => {
+    return state
+      .setIn([flightType, 'items', flightId, 'follow', 'loading'], false)
+      .setIn([flightType, 'items', flightId, 'follow', 'following'], true)
+      .setIn([flightType, 'items', flightId, 'follow', 'email'], email);
+  },
+
+  [constants.FLIGHTS.UNFOLLOW]: (state, { flightType, flightId }) => {
+    return state.setIn([flightType, 'items', flightId, 'follow', 'loading'], true);
+  },
+
+  [constants.FLIGHTS.UNFOLLOW_SUCCESS]: (state, { flightType, flightId }) => {
+    return state
+      .setIn([flightType, 'items', flightId, 'follow', 'loading'], false)
+      .setIn([flightType, 'items', flightId, 'follow', 'following'], false);
+  },
+
 });
 
 const isFlightOver = (flight) => {

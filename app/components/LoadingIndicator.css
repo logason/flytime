@@ -1,0 +1,10 @@
+@import 'variables.css';
+
+@keyframes spin {
+  from {transform: rotate(0)}
+  to {transform: rotate(360deg)}
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+}

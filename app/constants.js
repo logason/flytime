@@ -8,6 +8,10 @@ export default createConstants({
     GET_SUCCESS: null,
     GET_ERROR: null,
     SEARCH: null,
+    FOLLOW: null,
+    FOLLOW_SUCCESS: null,
+    UNFOLLOW: null,
+    UNFOLLOW_SUCCESS: null,
   }),
 
   SEARCH: keyMirror({

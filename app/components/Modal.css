@@ -84,7 +84,7 @@
   width: 100%;
 }
 
-.follow__input {
+.followInput {
   width: 100%;
   padding: 20px 0;
   text-align: center;
@@ -95,7 +95,13 @@
   font-size: var(--font-size-medium);
 }
 
-.follow__button {
+.isFollowing {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--color-orange);
+}
+
+.followButton {
   display: block;
   padding: 20px 0;
   background-color: var(--color-orange);
@@ -106,6 +112,15 @@
   transition: all var(--transition-time);
   outline: 0;
 }
-.follow__button:hover, .follow__button:active {
+.followButton:hover, .followButton:active {
   background: color(var(--color-orange) shade(10%));
+}
+.followButton--disabled, .followButton--disabled:hover, .followButton--disabled:active {
+  background: var(--color-grey);
+  cursor: default;
+}
+
+.loadingButton {
+  composes: followButton;
+  padding: 15px 0;
 }
