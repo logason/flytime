@@ -12,8 +12,10 @@ import 'global.css';
 
 const store = configureStore();
 
-ga.initialize(GA_TRACKING_CODE, { debug: __DEV__ });
-browserHistory.listen((location) => ga.pageview(location.pathname));
+if (!__DEV__) {
+  ga.initialize(GA_TRACKING_CODE);
+  browserHistory.listen((location) => ga.pageview(location.pathname));
+}
 
 if (typeof document !== 'undefined') {
   render(

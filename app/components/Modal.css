@@ -71,6 +71,7 @@
 }
 
 .modal {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -88,13 +89,30 @@
 
 .close {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0px;
+  right: 12px;
+  opacity: 0;
+  padding: 20px;
+  transition: all var(--transition-time);
 }
-.close:before, .close:after {
-  width: 10px;
-  height: 2px;
+.close::before, .close::after {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 4px;
   background: var(--color-grey);
+}
+.close::before {
+  transform: rotate(45deg);
+}
+.close::after {
+  transform: rotate(-45deg);
+}
+.close:hover::before, .close:hover::after {
+  background: var(--color-orange);
+}
+.modal:hover .close {
+  opacity: 1;
 }
 
 .details {

@@ -57,7 +57,7 @@ export default class Modal extends Component {
     return (
       <div className={styles.container} onClick={(event) => this.handleClose(event)}>
         <div className={styles.modal} onClick={(event) => event.stopPropagation()}>
-          <div className={styles.close} />
+          <a href="#" onClick={(event) => this.handleClose(event)} className={styles.close} />
           <div className={styles.map} />
           <div className={styles.details}>
             <div
