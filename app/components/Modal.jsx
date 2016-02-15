@@ -12,6 +12,7 @@ export default class Modal extends Component {
     return {
       type: PropTypes.string,
       flight: PropTypes.object,
+      isLoading: PropTypes.bool,
       modalActions: PropTypes.object,
       flightActions: PropTypes.object,
     };
@@ -25,7 +26,34 @@ export default class Modal extends Component {
   }
 
   render() {
-    const { flight, type } = this.props;
+    const { flight, type, isLoading } = this.props;
+
+    if (!flight && isLoading) {
+      return (
+        <div className={styles.container}>
+          <div className={styles.loadingModal}>
+            <LoadingIndicator size={40} orange />
+          </div>
+        </div>
+      );
+    } else if (!flight) {
+      return (
+        <div className={styles.container}>
+          <div className={styles.errorModal}>
+            <span className={styles.errorCode}>404</span>
+            <span className={styles.errorMessage}>Whoops, could not find requested flight.</span>
+            <a
+              href="#"
+              onClick={(event) => this.handleClose(event)}
+              className={styles.closeButton}
+            >
+              Close
+            </a>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.container} onClick={(event) => this.handleClose(event)}>
         <div className={styles.modal} onClick={(event) => event.stopPropagation()}>

@@ -104,6 +104,7 @@ export default class App extends Component {
                       key={key}
                       flight={data.flight}
                       type={type}
+                      isLoading={flights.get('isLoading')}
                       modalActions={bindedModalActions}
                       flightActions={bindedFlightActions}
                     />
