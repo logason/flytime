@@ -62,13 +62,8 @@ module.exports = (options) => {
     );
   }
 
-  if (options.dev) {
-    plugins.push(new webpack.DefinePlugin({
-      __DEV__: options.dev,
-    }));
-  }
-
   plugins.push(new webpack.DefinePlugin({
+    __DEV__: options.dev,
     FIREBASE_URL: JSON.stringify(process.env.FIREBASE_URL),
     GA_TRACKING_CODE: JSON.stringify(process.env.GA_TRACKING_CODE),
   }));
