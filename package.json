@@ -14,7 +14,7 @@
   "scripts": {
     "dev-server": "NODE_ENV=development node ./server/index.js",
     "hot-loader": "webpack --progress --color --watch --config webpack-development.config.js",
-    "build": "NODE_ENV=production webpack --progress --color --config webpack-production.config.js",
+    "build": "NODE_ENV=production webpack --config webpack-production.config.js",
     "start": "NODE_ENV=production node ./server/index.js",
     "lint": "eslint ./app ./server",
     "test": "mocha server/scraper/tests",
