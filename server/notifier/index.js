@@ -2,6 +2,7 @@
 
 const Firebase = require('firebase');
 const fs = require('fs');
+const path = require('path');
 
 const renderEmail = require('../utils/renderEmail');
 const sendEmails = require('../utils/sendEmails');
@@ -9,8 +10,8 @@ const sendEmails = require('../utils/sendEmails');
 const checkForUpdate = (flightType, updatedFlight) => {
   let oldFlight = {};
   try {
-    fs.accessSync(`server/cache/${flightType}-old.json`, fs.F_OK);
-    const oldFlights = fs.readFileSync(`server/cache/${flightType}-old.json`);
+    fs.accessSync(path.join(__dirname, `./cache/${flightType}-old.json`), fs.F_OK);
+    const oldFlights = fs.readFileSync(path.join(__dirname, `./cache/${flightType}-old.json`));
     oldFlight = JSON.parse(oldFlights).length && oldFlights[updatedFlight.key()];
   } catch (e) {
     return;

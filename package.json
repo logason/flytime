@@ -27,7 +27,6 @@
     "classnames": "2.2.3",
     "express": "4.13.3",
     "firebase": "2.3.2",
-    "fs": "0.0.2",
     "fuzzy": "0.1.1",
     "immutable": "3.7.6",
     "keymirror": "0.1.1",

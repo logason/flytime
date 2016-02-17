@@ -1510,11 +1510,6 @@
       "from": "fresh@0.3.0",
       "resolved": "https://registry.npmjs.org/fresh/-/fresh-0.3.0.tgz"
     },
-    "fs": {
-      "version": "0.0.2",
-      "from": "fs@0.0.2",
-      "resolved": "https://registry.npmjs.org/fs/-/fs-0.0.2.tgz"
-    },
     "fsevents": {
       "version": "1.0.7",
       "from": "fsevents@>=1.0.0 <2.0.0",
