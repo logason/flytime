@@ -8,7 +8,7 @@ let flightData;
 
 export function connectData(flightType) {
   return (dispatch) => {
-    flightData = new Firebase(`${FIREBASE_URL}/${flightType}`);
+    flightData = new Firebase(`https://flytime.firebaseio.com/${flightType}`);
 
     dispatch({
       type: constants.FLIGHTS.GET,

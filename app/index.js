@@ -13,7 +13,7 @@ import 'global.css';
 const store = configureStore();
 
 if (!__DEV__) {
-  ga.initialize(GA_TRACKING_CODE);
+  ga.initialize('UA-36256306-8');
   browserHistory.listen((location) => ga.pageview(location.pathname));
 }
 
@@ -27,7 +27,7 @@ if (typeof document !== 'undefined') {
           <Redirect from="/kef" to="/kef/arrivals" />
           <Redirect from="/" to="/kef/arrivals" />
         </Router>
-        <DevTools />
+        {__DEV__ && <DevTools />}
       </span>
     </Provider>,
     document.getElementById('app')
