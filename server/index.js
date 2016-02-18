@@ -44,7 +44,8 @@ if (!isProduction) {
   app.use(webpackHotMiddleware(compiler));
 }
 
-app.use('/_assets', express.static(path.join(__dirname, '../static'), { maxAge: '100y' }));
+app.use('/_assets', express.static(path.join(__dirname, '../static'), { maxAge: '1y' }));
+app.use('/_assets', express.static(path.join(__dirname, '../app/static')));
 
 app.get('*', (req, res) => {
   res.send(html);
