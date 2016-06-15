@@ -1,22 +1,20 @@
 'use strict';
 
 const Firebase = require('firebase');
-const fs = require('fs');
-const path = require('path');
 
 const renderEmail = require('../utils/renderEmail');
 const sendEmails = require('../utils/sendEmails');
 
 const checkForUpdate = (flightType, updatedFlight) => {
   let oldFlight = {};
-  try {
-    fs.accessSync(path.join(__dirname, `./cache/${flightType}-old.json`), fs.F_OK);
-    const oldFlights = fs.readFileSync(path.join(__dirname, `./cache/${flightType}-old.json`));
-    oldFlight = JSON.parse(oldFlights).length && oldFlights[updatedFlight.key()];
-  } catch (e) {
+
+  const oldFlights = require(`../cache/${flightType}-old.json`);
+  if (!oldFlights) {
+    console.log('Cache not found'); // eslint-disable-line no-console
     return;
   }
 
+  oldFlight = oldFlights[updatedFlight.key()];
   const newFlight = updatedFlight.val();
 
   if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
