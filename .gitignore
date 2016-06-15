@@ -2,5 +2,5 @@ node_modules
 npm-debug.log
 .env
 /static
-server/cache/
+server/cache/*.json
 *.sketch
