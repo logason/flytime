@@ -8,8 +8,10 @@ const sendEmails = require('../utils/sendEmails');
 const checkForUpdate = (flightType, updatedFlight) => {
   let oldFlight = {};
 
-  const oldFlights = require(`../cache/${flightType}-old.json`);
-  if (!oldFlights) {
+  let oldFlights;
+  try {
+    oldFlights = require(`../cache/${flightType}-old.json`);
+  } catch (e) {
     console.log('Cache not found'); // eslint-disable-line no-console
     return;
   }

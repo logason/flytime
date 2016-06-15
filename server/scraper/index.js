@@ -34,6 +34,12 @@ const scrape = (type) => {
 };
 
 module.exports = () => {
+  try {
+    fs.mkdirSync(path.join(__dirname, '../cache'));
+  } catch (e) {
+    // cache folder exists
+  }
+
   scrape('arrivals');
   scrape('departures');
 
