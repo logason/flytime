@@ -25,6 +25,7 @@
     "body-parser": "1.14.2",
     "cheerio": "0.19.0",
     "classnames": "2.2.3",
+    "dotenv": "2.0.0",
     "express": "4.13.3",
     "firebase": "2.3.2",
     "fuzzy": "0.1.1",

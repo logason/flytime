@@ -7,6 +7,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
 const scraper = require('./scraper');
 const notifier = require('./notifier');
