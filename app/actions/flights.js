@@ -1,4 +1,4 @@
-import Firebase from 'firebase';
+import firebase from 'firebase';
 import request from 'superagent';
 import ga from 'react-ga';
 
@@ -6,9 +6,17 @@ import constants from 'constants';
 
 let flightData;
 
+const config = {
+  apiKey: FIREBASE_KEY,
+  authDomain: FIREBASE_DOMAIN,
+  databaseURL: FIREBASE_URL,
+  storageBucket: FIREBASE_BUCKET,
+};
+const db = firebase.initializeApp(config).database();
+
 export function connectData(flightType) {
   return (dispatch) => {
-    flightData = new Firebase(`https://flytime.firebaseio.com/${flightType}`);
+    flightData = db.ref(`/${flightType}`);
 
     dispatch({
       type: constants.FLIGHTS.GET,

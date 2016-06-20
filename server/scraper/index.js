@@ -2,14 +2,13 @@
 
 const fs = require('fs');
 const path = require('path');
-const Firebase = require('firebase');
 
 const getFlights = require('./getFlights');
 const delayDetector = require('./delayDetector');
 
 const TIMETABLES_URL = 'http://www.kefairport.is/English/Timetables';
 
-const scrape = (type) => {
+const scrape = (type, db) => {
   const url = `${TIMETABLES_URL}/${type}/`;
   console.log(new Date(), `Fetching ${type}`);
   getFlights(`${url}/yesterday`, [])
@@ -27,25 +26,25 @@ const scrape = (type) => {
       fs.writeFile(path.join(__dirname, `../cache/${type}.json`), JSON.stringify(flights));
 
       // Post flights to Firebase
-      const firebaseClient = new Firebase(`${process.env.FIREBASE_URL}/${type}`);
+      const firebaseClient = db.ref(`/${type}`);
       firebaseClient.set(flights);
       console.log(new Date(), `Finished fetching ${type}`);
     });
 };
 
-module.exports = () => {
+module.exports = (db) => {
   try {
     fs.mkdirSync(path.join(__dirname, '../cache'));
   } catch (e) {
     // cache folder exists
   }
 
-  scrape('arrivals');
-  scrape('departures');
+  scrape('arrivals', db);
+  scrape('departures', db);
 
   // Scrape and update data every 2 minutes
-  setInterval(() => scrape('arrivals'), 60000);
-  setInterval(() => scrape('departures'), 60000);
+  setInterval(() => scrape('arrivals', db), 60000);
+  setInterval(() => scrape('departures', db), 60000);
 
   console.log(new Date(), 'Scraper running');
 };

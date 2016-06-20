@@ -13,7 +13,7 @@ import 'global.css';
 const store = configureStore();
 
 if (!__DEV__) {
-  ga.initialize('UA-36256306-8');
+  ga.initialize(GA_TRACKING_CODE);
   browserHistory.listen((location) => ga.pageview(location.pathname));
 }
 

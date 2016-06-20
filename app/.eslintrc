@@ -6,5 +6,9 @@
     "__DEV__": true,
     "FIREBASE_URL": true,
     "GA_TRACKING_CODE": true,
+    "FIREBASE_KEY": true,
+    "FIREBASE_DOMAIN": true,
+    "FIREBASE_URL": true,
+    "FIREBASE_BUCKET": true,
   }
 }

@@ -1,9 +1,9 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+require('dotenv').config();
 
 module.exports = (options) => {
   const entry = [
@@ -64,6 +64,11 @@ module.exports = (options) => {
 
   plugins.push(new webpack.DefinePlugin({
     __DEV__: options.dev,
+    GA_TRACKING_CODE: JSON.stringify(process.env.GA_TRACKING_CODE),
+    FIREBASE_KEY: JSON.stringify(process.env.FIREBASE_KEY),
+    FIREBASE_DOMAIN: JSON.stringify(process.env.FIREBASE_DOMAIN),
+    FIREBASE_URL: JSON.stringify(process.env.FIREBASE_URL),
+    FIREBASE_BUCKET: JSON.stringify(process.env.FIREBASE_BUCKET),
   }));
 
   return {

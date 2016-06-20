@@ -1,6 +1,6 @@
 'use strict';
 
-const Firebase = require('firebase');
+const firebase = require('firebase');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -14,27 +14,24 @@ const notifier = require('./notifier');
 const api = require('./api');
 const webpackConfig = require('../webpack-development.config.js');
 
-const firebaseRef = new Firebase(process.env.FIREBASE_URL);
+firebase.initializeApp({
+  databaseURL: process.env.FIREBASE_URL,
+  serviceAccount: path.join(__dirname, '../.firebaseKey.json'),
+});
+const db = firebase.database();
+
+
+scraper(db);
+notifier(db);
+
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const html = fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf-8');
 
-firebaseRef.authWithCustomToken(process.env.FIREBASE_SECRET, (error) => {
-  if (error) {
-    console.log('Authentication failed!', error);
-  } else {
-    console.log('Authentication succesfull!');
-
-    // Start scraper and notifier
-    scraper();
-    notifier();
-  }
-});
-
 app.use('/healthy', (req, res) => {
   res.send('ok');
 });
-app.use('/api', api());
+app.use('/api', api(db));
 
 if (!isProduction) {
   const compiler = webpack(webpackConfig);

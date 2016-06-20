@@ -1,11 +1,9 @@
 'use strict';
 
-const Firebase = require('firebase');
-
 const renderEmail = require('../utils/renderEmail');
 const sendEmails = require('../utils/sendEmails');
 
-const checkForUpdate = (flightType, updatedFlight) => {
+const checkForUpdate = (flightType, updatedFlight, db) => {
   let oldFlight = {};
 
   let oldFlights;
@@ -16,12 +14,12 @@ const checkForUpdate = (flightType, updatedFlight) => {
     return;
   }
 
-  oldFlight = oldFlights[updatedFlight.key()];
+  oldFlight = oldFlights[updatedFlight.key];
   const newFlight = updatedFlight.val();
 
   if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
     if (oldFlight.status !== newFlight.status) {
-      const followersData = new Firebase(`${process.env.FIREBASE_URL}/followers/${newFlight.id}`);
+      const followersData = db.ref(`/followers/${newFlight.id}`);
       followersData.once('value', (data) => {
         const followersList = data.val();
         if (followersList) {
@@ -45,10 +43,10 @@ const checkForUpdate = (flightType, updatedFlight) => {
   return;
 };
 
-module.exports = () => {
-  const arrivalsWatcher = new Firebase(`${process.env.FIREBASE_URL}/arrivals`);
-  arrivalsWatcher.on('child_changed', (newFlight) => checkForUpdate('arrivals', newFlight));
+module.exports = (db) => {
+  const arrivalsWatcher = db.ref('/arrivals');
+  arrivalsWatcher.on('child_changed', (newFlight) => checkForUpdate('arrivals', newFlight, db));
 
-  const departuresWatcher = new Firebase(`${process.env.FIREBASE_URL}/departures`);
-  departuresWatcher.on('child_changed', (newFlight) => checkForUpdate('departures', newFlight));
+  const departuresWatcher = db.ref('/departures');
+  departuresWatcher.on('child_changed', (newFlight) => checkForUpdate('departures', newFlight, db));
 };
