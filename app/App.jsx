@@ -95,6 +95,7 @@ export default class App extends Component {
               <div>
                 {values.map(({ key, style, data }) =>
                   <div
+                    key={key}
                     style={{
                       zoom: style.zoom,
                       opacity: style.opacity,

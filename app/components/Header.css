@@ -42,18 +42,62 @@
   border-top: 6px solid var(--color-white);
 }
 
+.toggleSearch {
+  display: none;
+}
+
+.searchIcon {
+  width: 40px;
+  height: 20px;
+}
+
+.searchIconCircle {
+  stroke: var(--color-white);
+}
+
+.searchIconRect {
+  fill: var(--color-white);
+}
+
 .search {
+  position: relative;
   display: flex;
   align-items: center;
   flex-basis: 50%;
   background: var(--color-white);
-  padding: 0 2vw;
+}
 
+.searchInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 2vw;
   border: none;
   outline: none;
-
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-light);
+}
+
+.clearSearch {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 36px;
+}
+
+.closeIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.closeIconShape {
+  fill: var(--color-orange);
 }
 
 .typeDropdown {
@@ -108,4 +152,69 @@
 
 .status {
   width: 25%;
+}
+
+.details {
+  display: none;
+}
+
+@media(max-width: 600px) {
+
+  .header {
+    display: block;
+    position: relative;
+  }
+
+  .typeSelector {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .typeSelector:hover {
+    background-color: var(--color-orange);
+  }
+
+  .typeDropdown {
+    width: 100%;
+  }
+
+  .toggleSearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 25px;
+  }
+
+  .search {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -70px;
+    height: 70px;
+    transition: transform var(--transition-time) ease;
+  }
+
+  .search--active {
+    transform: translateY(100%);
+  }
+
+  .scheduled {
+    width: 30%;
+  }
+
+  .airline, .flightNum, .location, .status {
+    display: none;
+  }
+
+  .details {
+    display: table-cell;
+    width: 70%;
+  }
+
 }

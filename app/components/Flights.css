@@ -86,3 +86,46 @@
 .flight_over td img {
   opacity: 0.5;
 }
+
+.details {
+  display: none;
+}
+
+.detailsRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media(max-width: 600px) {
+
+  .flight {
+    height: 90px;
+  }
+
+  .expanded {
+    display: none;
+  }
+
+  .date, .scheduled {
+    width: 15%;
+  }
+
+  .details {
+    display: table-cell;
+    width: 70%;
+  }
+
+  .airline {
+    width: 20%;
+  }
+
+  .flightNum, .location, .status {
+    width: 100%;
+  }
+
+  .location {
+    font-weight: var(--font-weight-bold);
+  }
+
+}

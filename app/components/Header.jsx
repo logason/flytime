@@ -1,16 +1,25 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import classNames from 'classnames';
 import Headroom from 'react-headroom';
 import { Link } from 'react-router';
 
 import Clock from './Clock';
+import SearchIcon from './SearchIcon';
+import XIcon from './XIcon';
 import styles from './Header.css';
 
+@connect(createStructuredSelector({
+  searchQuery: (state) => state.search.get('query'),
+}))
 export default class Header extends Component {
 
   static get propTypes() {
     return {
       type: PropTypes.string.isRequired,
       searchActions: PropTypes.object.isRequired,
+      searchQuery: PropTypes.string,
     };
   }
 
@@ -18,6 +27,7 @@ export default class Header extends Component {
     super(props);
     this.state = {
       displayDropdown: false,
+      displaySearch: false,
     };
   }
 
@@ -34,11 +44,40 @@ export default class Header extends Component {
             <Clock />
             <div className={`${styles.type} antialiased`}>KEF {type === 'arrivals' ? 'Arrivals' : 'Departures'}</div>
           </a>
+          <a
+            href="#"
+            onClick={(event) => this._handleShowSearch(event)}
+            className={styles.toggleSearch}
+          >
+            <SearchIcon
+              className={styles.searchIcon}
+              circleClassName={styles.searchIconCircle}
+              rectClassName={styles.searchIconRect}
+            />
+        </a>
+        <div
+          className={classNames(styles.search, {
+            [styles['search--active']]: this.state.displaySearch,
+          })}
+        >
           <input
             placeholder="Search for flight..."
-            className={`${styles.search} antialiased`}
+            className={`${styles.searchInput} antialiased`}
             onChange={(event) => this._handleSearch(event)}
+            value={this.props.searchQuery}
+            ref={(node) => (this.input = node)}
           />
+          <a
+            href="#"
+            className={styles.clearSearch}
+            onClick={(event) => this._handleClearSearch(event)}
+          >
+            <XIcon
+              className={styles.closeIcon}
+              shapeClassName={styles.closeIconShape}
+            />
+          </a>
+        </div>
         </div>
         {this.state.displayDropdown && (
           <Link
@@ -55,9 +94,10 @@ export default class Header extends Component {
               <td className={styles.margin} />
               <td className={styles.scheduled}>Scheduled</td>
               <td className={styles.airline}>Airline</td>
-              <td className={styles.flightNum}>Flight num</td>
+              <td className={styles.flightNum}>Flight</td>
               <td className={styles.location}>From</td>
               <td className={styles.status}>Status</td>
+              <td className={styles.details}>Details</td>
               <td className={styles.margin} />
             </tr>
           </thead>
@@ -69,6 +109,18 @@ export default class Header extends Component {
   _handleToggleTypeSelector(event) {
     event.preventDefault();
     this.setState({ displayDropdown: !this.state.displayDropdown });
+  }
+
+  _handleShowSearch(event) {
+    event.preventDefault();
+    this.setState({ displaySearch: true });
+    this.input.focus();
+  }
+
+  _handleClearSearch(event) {
+    event.preventDefault();
+    this.setState({ displaySearch: false });
+    this.props.searchActions.clear();
   }
 
   _handlePickType() {

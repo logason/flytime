@@ -36,6 +36,7 @@ export default class Flight extends Component {
     const now = new Date();
     const flightDay = flight.get('date').split('. ')[0];
     const isToday = now.getDate() === parseInt(flightDay, 10);
+    const airlineLogo = `/_assets/img/${flight.get('airline').replace(' ', '').replace('.', '').toLowerCase()}.png`;
 
     return (
       <tr
@@ -57,12 +58,20 @@ export default class Flight extends Component {
           )}
         </td>
         <td className={styles.scheduled}>{flight.get('scheduled')}</td>
-        <td className={styles.airline}>
-          <img src={`/_assets/img/${flight.get('airline').replace(' ', '').replace('.', '').toLowerCase()}.png`}></img>
+        <td className={classNames(styles.airline, styles.expanded)}>
+          <img src={airlineLogo}></img>
         </td>
-        <td className={styles.flightNum}>{flight.get('flightNum')}</td>
-        <td className={styles.location}>{flight.get('location')}</td>
-        <td className={styles.status}>{flight.get('status')}</td>
+        <td className={classNames(styles.flightNum, styles.expanded)}>{flight.get('flightNum')}</td>
+        <td className={classNames(styles.location, styles.expanded)}>{flight.get('location')}</td>
+        <td className={classNames(styles.status, styles.expanded)}>{flight.get('status')}</td>
+        <td className={classNames(styles.details)}>
+          <div className={styles.detailsRow}>
+            <div className={styles.airline}><img src={airlineLogo}></img></div>
+            <div className={styles.flightNum}>{flight.get('flightNum')}</div>
+          </div>
+          <div className={styles.location}>{flight.get('location')}</div>
+          <div className={styles.status}>{flight.get('status')}</div>
+        </td>
         <td className={styles.margin} />
       </tr>
     );
