@@ -10,7 +10,7 @@
   align-items: center;
   flex-basis: 50%;
   background: var(--color-orange);
-  padding: 0 2vw;
+  padding: 0 15px;
   color: var(--color-white);
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-medium);
@@ -73,7 +73,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  padding: 0 2vw;
+  padding: 0 15px;
   border: none;
   outline: none;
   font-size: var(--font-size-large);

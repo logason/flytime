@@ -8,9 +8,10 @@
 }
 
 .content {
-  transition: filter 250ms;
+  min-height: 100vh;
 }
 
-.blur {
-  filter: blur(2px);
+.modalContainer {
+  position: absolute;
+  z-index: 900;
 }

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 300;
+  z-index: 900;
   position: fixed;
   top: 0;
   left: 0;
@@ -148,6 +148,10 @@
   display: flex;
 }
 
+.flightDetails__itemGroup {
+  display: flex;
+}
+
 .flightDetails__item {
   display: flex;
   flex-direction: column;
@@ -205,4 +209,29 @@
 .loadingButton {
   composes: followButton;
   padding: 15px 0;
+}
+
+@media(max-width: 600px) {
+
+  .location {
+    margin: 15px 0;
+    font-size: var(--font-size-medium);
+  }
+
+  .arrow {
+    margin: 6px 10px 0 15px;
+  }
+
+  .flightDetails {
+    flex-direction: column;
+  }
+
+  .flightDetails__itemGroup {
+    margin-bottom: 15px;
+  }
+
+  .close {
+    opacity: 1;
+  }
+
 }

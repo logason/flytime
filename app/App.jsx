@@ -62,59 +62,59 @@ export default class App extends Component {
     const bindedModalActions = bindActionCreators(modalActions, dispatch);
     return (
       <div className={styles.container} style={{ overflow: modal ? 'hidden' : 'auto' }}>
-        <div
-          className={classNames(styles.content, {
-            [styles.blur]: modal,
-          })}
-        >
+        <div className={styles.content}>
           <Header
             type={this.props.type}
             searchActions={bindedSearchActions}
           />
           <Flights flights={flights} type={type} modalActions={bindedModalActions} />
         </div>
-        <ScrollLock>
-          <TransitionMotion
-            styles={() => {
-              return modal ? [{
-                key: 'modal',
-                data: { flight: modal.get('flight') },
-                style: {
-                  opacity: spring(1),
-                  zoom: spring(1, { stiffness: 230, damping: 20 }),
-                },
-              }] : [];
-            }}
-            willEnter={() => ({ opacity: 0.7, zoom: 0.8 })}
-            willLeave={() => ({
-              opacity: spring(0, { stiffness: 400, damping: 20 }),
-              zoom: spring(0.8, { stiffness: 400, damping: 20 }),
-            })}
-          >
-            {values =>
-              <div>
-                {values.map(({ key, style, data }) =>
-                  <div
-                    key={key}
-                    style={{
-                      zoom: style.zoom,
-                      opacity: style.opacity,
-                    }}
-                  >
-                    <Modal
+        <div className={styles.modalContainer}>
+          <ScrollLock>
+            <TransitionMotion
+              styles={() => {
+                return modal ? [{
+                  key: 'modal',
+                  data: { flight: modal.get('flight') },
+                  style: {
+                    opacity: spring(1),
+                    y: spring(0, { stiffness: 230, damping: 20 }),
+                  },
+                }] : [];
+              }}
+              willEnter={() => ({ opacity: 0.7, y: -50 })}
+              willLeave={() => ({
+                opacity: spring(0, { stiffness: 400, damping: 20 }),
+                y: spring(-50, { stiffness: 400, damping: 20 }),
+              })}
+            >
+              {values =>
+                <div>
+                  {values.map(({ key, style, data }) =>
+                    <div
                       key={key}
-                      flight={data.flight}
-                      type={type}
-                      isLoading={flights.get('isLoading')}
-                      modalActions={bindedModalActions}
-                      flightActions={bindedFlightActions}
-                    />
-                  </div>
-                )}
-              </div>
-            }
-          </TransitionMotion>
-        </ScrollLock>
+                      style={{
+                        opacity: style.opacity,
+                      }}
+                    >
+                      <Modal
+                        key={key}
+                        flight={data.flight}
+                        type={type}
+                        isLoading={flights.get('isLoading')}
+                        modalActions={bindedModalActions}
+                        flightActions={bindedFlightActions}
+                        style={{
+                          transform: `translateY(${style.y}%)`,
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              }
+            </TransitionMotion>
+          </ScrollLock>
+        </div>
       </div>
     );
   }

@@ -72,13 +72,15 @@ export default class Modal extends Component {
               {type === 'arrivals' ? 'Keflavik' : flight.get('location')}
             </div>
             <div className={styles.flightDetails}>
-              <div className={styles.flightDetails__item}>
-                <div className={styles.label}>Flight no.</div>
-                <div>{flight.get('flightNum')}</div>
-              </div>
-              <div className={styles.flightDetails__item}>
-                <div className={styles.label}>Scheduled</div>
-                <div>{flight.get('scheduled')}</div>
+              <div className={styles.flightDetails__itemGroup}>
+                <div className={styles.flightDetails__item}>
+                  <div className={styles.label}>Flight no.</div>
+                  <div>{flight.get('flightNum')}</div>
+                </div>
+                <div className={styles.flightDetails__item}>
+                  <div className={styles.label}>Scheduled</div>
+                  <div>{flight.get('scheduled')}</div>
+                </div>
               </div>
               {flight.get('status') && (
                 <div className={styles.flightDetails__item}>

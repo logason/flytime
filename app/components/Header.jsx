@@ -113,7 +113,10 @@ export default class Header extends Component {
 
   _handleShowSearch(event) {
     event.preventDefault();
-    this.setState({ displaySearch: true });
+    this.setState({
+      displayDropdown: false,
+      displaySearch: true,
+    });
     this.input.focus();
   }
 
