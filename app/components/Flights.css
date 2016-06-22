@@ -1,7 +1,10 @@
 @import 'variables.css';
 
 .flightTable {
-  margin-top: 30px;
+  position: absolute;
+  top: 105px;
+  left: 0;
+  right: 0;
   width: 100%;
   border: 0;
 
@@ -12,12 +15,30 @@
 .flight {
   height: 75px;
   cursor: pointer;
+  transition: opacity var(--transition-time);
+  background: var(--color-white);
 }
 
 .flight > * {
   padding-left: 6px;
   border-bottom: 1px solid var(--color-grey);
 }
+.flight--loading > * {
+  border-bottom: 1px solid var(--color-grey-light);
+}
+.flight:hover {
+  background-color: var(--color-grey-light);
+}
+.flight--over, .flight--over:hover, .flight--loading:hover {
+  color: color(var(--color-text) alpha(50%));
+  background: var(--color-white);
+  cursor: default;
+}
+
+.flight--over td img {
+  opacity: 0.5;
+}
+
 
 .margin {
   width: 2.5%;
@@ -73,20 +94,6 @@
   width: 25%;
 }
 
-.flight:hover {
-  background-color: var(--color-grey-light);
-}
-
-.flight_over, .flight_over:hover {
-  color: color(var(--color-text) alpha(50%));
-  background: transparent;
-  cursor: default;
-}
-
-.flight_over td img {
-  opacity: 0.5;
-}
-
 .details {
   display: none;
 }
@@ -95,6 +102,46 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.loadingContainer {
+  margin-top: 35px;
+  text-align: center;
+}
+
+@keyframes flight-loading {
+  0% {
+    transform: translateX(-30vw);
+  }
+  100% {
+    transform: translateX(30vw);
+  }
+}
+
+.loader {
+  width: 70%;
+  height: 10px;
+  position: relative;
+  background: var(--color-grey-light);
+  overflow: hidden;
+}
+
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30vw;
+  background: linear-gradient(
+    90deg,
+    var(--color-grey-light) 0%,
+    color(var(--color-grey-light) lightness(98%)) 10%,
+    color(var(--color-grey-light) lightness(97%)) 50%,
+    color(var(--color-grey-light) lightness(98%)) 90%,
+    var(--color-grey-light) 100%
+  );
+  animation: flight-loading 2s ease-out infinite;
 }
 
 @media(max-width: 600px) {

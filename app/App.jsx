@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import classNames from 'classnames';
 import { TransitionMotion, spring } from 'react-motion';
 
 import Header from 'components/Header';

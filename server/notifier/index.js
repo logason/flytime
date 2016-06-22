@@ -17,7 +17,7 @@ const checkForUpdate = (flightType, updatedFlight, db) => {
   oldFlight = oldFlights[updatedFlight.key];
   const newFlight = updatedFlight.val();
 
-  if (oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
+  if (oldFlight && newFlight && oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
     if (oldFlight.status !== newFlight.status) {
       const followersData = db.ref(`/followers/${newFlight.id}`);
       followersData.once('value', (data) => {
