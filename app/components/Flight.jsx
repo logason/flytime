@@ -26,7 +26,7 @@ export default class Flight extends Component {
       <tr
         key={flight.get('id')}
         className={classNames(styles.flight, {
-          [styles.flight_over]: flight.get('isOver'),
+          [styles['flight--over']]: flight.get('isOver'),
         })}
         onClick={() => this._handleOpenFlight(flight.get('isOver'), flight.get('id'))}
       >

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import { browserHistory } from 'react-router';
 import { StaggeredMotion, spring } from 'react-motion';
 import { range } from 'lodash';
 
@@ -56,12 +55,13 @@ export default class Flights extends Component {
     return (
       <table className={styles.flightTable}>
         <tbody>
-          {flights && flights.get('items').map((flight) => {
+          {flights && flights.get('items').map((flight, index) => {
             return (
               <Flight
                 flight={flight}
                 type={this.props.type}
                 modalActions={this.props.modalActions}
+                key={index}
               />
           );
           })}

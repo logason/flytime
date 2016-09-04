@@ -6,6 +6,10 @@
   transition: opacity var(--transition-time);
   background: var(--color-white);
 }
+.flight--over {
+  cursor: default;
+  opacity: 0.75;
+}
 
 .flight > * {
   padding-left: 6px;

@@ -30,12 +30,16 @@ export default class AirlineLogo extends Component {
   }
 
   setAirlineLogo(airline) {
-    request.head(this.getLogoPath(airline)).end((err, res) => {
+    this.request = request.head(this.getLogoPath(airline)).end((err, res) => {
       if (err || res.type === 'text/html') {
         return this.setState({ isLogoAvailable: false });
       }
       return this.setState({ isLogoAvailable: true });
     });
+  }
+
+  componentWillUnmount() {
+    this.request.abort();
   }
 
   render() {
