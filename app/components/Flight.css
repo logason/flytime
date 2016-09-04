@@ -1,17 +1,5 @@
 @import 'variables.css';
 
-.flightTable {
-  position: absolute;
-  top: 105px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  border: 0;
-
-  border-spacing: 0;
-  border-collapse: separate;
-}
-
 .flight {
   height: 75px;
   cursor: pointer;
@@ -26,6 +14,18 @@
 .flight--loading > * {
   border-bottom: 1px solid var(--color-grey-light);
 }
+.flight:hover {
+  background-color: var(--color-grey-light);
+}
+.flight--over, .flight--over:hover, .flight--loading:hover {
+  color: color(var(--color-text) alpha(50%));
+  background: var(--color-white);
+  cursor: default;
+}
+
+.flight--over td img {
+  opacity: 0.5;
+}
 
 .margin {
   width: 2.5%;
@@ -35,6 +35,22 @@
 .date {
   width: 5%;
   text-align: center;
+}
+
+.date__today {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.date__day {
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+}
+
+.date__month {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
 }
 
 .scheduled {
@@ -47,6 +63,21 @@
 .airline {
   position: relative;
   width: 10%;
+}
+
+.airlineLogo {
+  position: relative;
+  width: 100px;
+  max-width: 60%;
+  height: 40px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.fallbackAirlineName {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
 }
 
 .flightNum {
@@ -69,46 +100,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-
-.loadingContainer {
-  margin-top: 35px;
-  text-align: center;
-}
-
-@keyframes flight-loading {
-  0% {
-    transform: translateX(-30vw);
-  }
-  100% {
-    transform: translateX(30vw);
-  }
-}
-
-.loader {
-  width: 70%;
-  height: 10px;
-  position: relative;
-  background: var(--color-grey-light);
-  overflow: hidden;
-}
-
-.loader:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 30vw;
-  background: linear-gradient(
-    90deg,
-    var(--color-grey-light) 0%,
-    color(var(--color-grey-light) lightness(98%)) 10%,
-    color(var(--color-grey-light) lightness(97%)) 50%,
-    color(var(--color-grey-light) lightness(98%)) 90%,
-    var(--color-grey-light) 100%
-  );
-  animation: flight-loading 2s ease-out infinite;
 }
 
 @media(max-width: 600px) {

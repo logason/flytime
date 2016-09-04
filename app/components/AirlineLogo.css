@@ -1,0 +1,19 @@
+@import 'variables.css';
+
+.airlineLogo {
+  position: relative;
+  width: 100px;
+  max-width: 60%;
+  height: 40px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.fallbackAirlineName {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

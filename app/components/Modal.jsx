@@ -3,7 +3,9 @@ import { browserHistory } from 'react-router';
 import classNames from 'classnames';
 import validator from 'validator';
 
+import AirlineLogo from './AirlineLogo';
 import LoadingIndicator from 'components/LoadingIndicator';
+
 import styles from './Modal.css';
 
 export default class Modal extends Component {
@@ -60,12 +62,7 @@ export default class Modal extends Component {
           <a href="#" onClick={(event) => this.handleClose(event)} className={styles.close} />
           <div className={styles.map} />
           <div className={styles.details}>
-            <div
-              className={styles.airlineLogo}
-              style={{
-                backgroundImage: `url(/_assets/img/${flight.get('airline').replace(' ', '').replace('.', '').toLowerCase()}.png)`,
-              }}
-            />
+            <AirlineLogo airline={flight.get('airline')} />
             <div className={styles.location}>
               {type === 'arrivals' ? flight.get('location') : 'Keflavik'}
               <div className={styles.arrow} />
@@ -102,6 +99,7 @@ export default class Modal extends Component {
                 placeholder="Enter your email address..."
                 className={styles.followInput}
                 autoFocus
+                type="email"
               />
             )}
             {this.renderFollowButton()}
