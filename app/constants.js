@@ -25,4 +25,8 @@ export default createConstants({
     CLOSE: null,
   }),
 
+  LOGOS: keyMirror({
+    CHECK: null,
+  }),
+
 });

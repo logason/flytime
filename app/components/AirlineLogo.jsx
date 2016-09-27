@@ -1,54 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import request from 'superagent';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import { getLogo } from 'selectors/logos';
+import * as logoActions from 'actions/logos';
+import getLogoPath from 'utils/getLogoPath';
 
 import styles from './AirlineLogo.css';
 
+@connect(createStructuredSelector({
+  isLogoAvailable: getLogo,
+}))
 export default class AirlineLogo extends Component {
 
   static get propTypes() {
     return {
-      airline: PropTypes.string,
-    };
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLogoAvailable: true,
+      airline: PropTypes.string.isRequired,
+      dispatch: PropTypes.func.isRequired,
+      isLogoAvailable: PropTypes.bool,
     };
   }
 
   componentDidMount() {
-    this.setAirlineLogo(this.props.airline);
+    this.props.dispatch(logoActions.checkIfLogoExists(this.props.airline));
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.airline !== this.props.airline) {
-      this.setAirlineLogo(nextProps.airline);
+      this.props.dispatch(logoActions.checkIfLogoExists(nextProps.airline));
     }
   }
 
-  setAirlineLogo(airline) {
-    this.request = request.head(this.getLogoPath(airline)).end((err, res) => {
-      if (err || res.type === 'text/html') {
-        return this.setState({ isLogoAvailable: false });
-      }
-      return this.setState({ isLogoAvailable: true });
-    });
-  }
-
-  componentWillUnmount() {
-    this.request.abort();
-  }
-
   render() {
-    if (this.state.isLogoAvailable) {
+    if (this.props.isLogoAvailable || this.props.isLogoAvailable === undefined) {
       return (
         <div
           className={styles.airlineLogo}
           style={{
-            backgroundImage: `url(${this.getLogoPath(this.props.airline)})`,
+            backgroundImage: `url(${getLogoPath(this.props.airline)})`,
           }}
         ></div>
       );
@@ -57,9 +47,5 @@ export default class AirlineLogo extends Component {
     return (
       <div className={classNames(styles.fallbackAirlineName, 'antialiased')}>{this.props.airline}</div>
     );
-  }
-
-  getLogoPath(airline) {
-    return `/_assets/img/${airline.replace(' ', '').replace('.', '').toLowerCase()}.png`;
   }
 }

@@ -42,7 +42,7 @@ module.exports = (options) => {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1!postcss-loader'),
     });
-    plugins.push(new ExtractTextPlugin(`styles.css${options.longTermCaching ? '?[hash]' : ''}`));
+    plugins.push(new ExtractTextPlugin(`styles${options.longTermCaching ? '.[hash]' : ''}.css`));
   } else {
     loaders.push({
       test: /\.css$/,
@@ -76,8 +76,8 @@ module.exports = (options) => {
     entry,
     output: {
       path: path.join(__dirname, 'static'),
-      filename: `bundle.js${options.longTermCaching ? '?[hash]' : ''}`,
-      publicPath: '/_assets',
+      filename: `bundle${options.longTermCaching ? '.[hash]' : ''}.js`,
+      publicPath: '/_assets/',
     },
     plugins,
     resolve: {
