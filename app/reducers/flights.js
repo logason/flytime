@@ -44,7 +44,7 @@ export default createReducer(initialState, {
       expireHour = 24 + expireHour;
     }
     return state.setIn([flightType, 'items'], flightsMap.take(lastFinishedFlightIndex + 1).reverse().takeUntil((flight) => {
-      if (flight.get('status').indexOf('Cancelled') >= 0 || flight.get('status') === '' || flight.get('status') === 'Boarding') {
+      if (flight.get('status').indexOf('Cancelled') >= 0 || flight.get('status') === '' || flight.get('status') === 'Boarding' || flight.get('status') === 'Closed') {
         return false;
       }
       return flight.get('status').split(' ')[1].split(':')[0] <= expireHour;
