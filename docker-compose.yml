@@ -1,0 +1,14 @@
+version: "2"
+services:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - flytime:flytime
+
+  flytime:
+    build: ./
+    ports:
+      - "3000"

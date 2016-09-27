@@ -1,15 +1,13 @@
-FROM node:argon
+FROM node:6.3.1
 
-ADD package.json /tmp/package.json
-RUN cd /tmp && \
-    npm install --progress=false && \
-    mkdir -p /usr/src/app && \
-    mv /tmp/node_modules /usr/src/app/
+RUN mkdir /flytime
+WORKDIR /flytime
 
-WORKDIR /usr/src/app
+COPY ./package.json /flytime
+RUN npm install
 
-COPY . /usr/src/app
+COPY . /flytime
 RUN npm run build
 
-EXPOSE 8080
-CMD [ "npm", "start" ]
+EXPOSE 3000
+CMD ["npm", "start"]
