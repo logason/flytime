@@ -14,12 +14,17 @@ const notifier = require('./notifier');
 const api = require('./api');
 const webpackConfig = require('../webpack-development.config.js');
 
+const opbeat = require('opbeat').start({
+  appId: process.env.OPBEAT_APP_ID,
+  organizationId: process.env.OPBEAT_ORGANIZATION_ID,
+  secretToken: process.env.OPBEAT_SECRET_TOKEN,
+});
+
 firebase.initializeApp({
   databaseURL: process.env.FIREBASE_URL,
   serviceAccount: path.join(__dirname, '../.firebaseKey.json'),
 });
 const db = firebase.database();
-
 
 scraper(db);
 notifier(db);
@@ -27,6 +32,8 @@ notifier(db);
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const html = fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf-8');
+
+app.use(opbeat.middleware.express());
 
 app.use('/healthy', (req, res) => {
   res.send('ok');

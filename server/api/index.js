@@ -77,7 +77,7 @@ module.exports = (db) => {
 
       followersList.forEach((follower) => {
         if (follower.val() === email) {
-          follower.ref().remove((error) => {
+          follower.ref.remove((error) => {
             if (error) {
               // XXX Log error
               res.status(500).send('Could not unfollow');
