@@ -5,6 +5,25 @@ server {
   server_name flytime.is;
   access_log /var/log/nginx/api.log;
 
+  gzip on;
+  gzip_comp_level 6;
+  gzip_min_length 1100;
+  gzip_buffers 16 8k;
+  gzip_proxied any;
+  gzip_types
+      text/plain
+      text/css
+      text/js
+      text/xml
+      text/javascript
+      application/javascript
+      application/x-javascript
+      application/json
+      application/xml
+      application/rss+xml
+      image/svg+xml;
+
+
   location / {
     proxy_pass http://flytime:3000;
     proxy_set_header Host $host;
