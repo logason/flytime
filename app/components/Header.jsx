@@ -64,7 +64,7 @@ export default class Header extends Component {
             placeholder="Search for flight..."
             className={`${styles.searchInput} antialiased`}
             onChange={(event) => this._handleSearch(event)}
-            value={this.props.searchQuery}
+            value={this.props.searchQuery || ''}
             ref={(node) => (this.input = node)}
           />
           <a

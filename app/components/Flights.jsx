@@ -42,8 +42,8 @@ export default class Flights extends Component {
           >
             {interpolatingStyles =>
               <tbody>
-                {interpolatingStyles.map((style) =>
-                  this._renderLoadingFlight(style)
+                {interpolatingStyles.map((style, key) =>
+                  this._renderLoadingFlight(style, key)
                 )}
               </tbody>
             }
@@ -70,9 +70,10 @@ export default class Flights extends Component {
     );
   }
 
-  _renderLoadingFlight(style) {
+  _renderLoadingFlight(style, key) {
     return (
       <tr
+        key={key}
         style={{ opacity: style.opacity }}
         className={classNames(styles.flight, styles['flight--loading'])}
       >

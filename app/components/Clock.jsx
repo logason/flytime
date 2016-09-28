@@ -29,7 +29,7 @@ export default class App extends Component {
     const { currentMinutes, currentHours } = this.state;
     return (
       <svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g transform="translate(-90.000000, -94.000000)">
             <g transform="translate(93.000000, 97.000000)">
               <rect transform={`rotate(${(360 / 60) * currentMinutes}, 15.5, 15.5)`} fill="#fff" x="14" y="6" width="3" height="10"></rect>
