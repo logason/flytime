@@ -18,6 +18,11 @@ export default class Flight extends Component {
 
   render() {
     const { flight } = this.props;
+
+    if (!flight.get('date')) {
+      return null;
+    }
+
     const now = new Date();
     const flightDay = flight.get('date').split('. ')[0];
     const isToday = now.getDate() === parseInt(flightDay, 10);

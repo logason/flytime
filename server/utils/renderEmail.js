@@ -5,6 +5,7 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
   const scheduled = flight.scheduled;
   const status = flight.status;
   const flightNum = flight.flightNum;
+  const flightId = flight.id;
 
   const appUrl = process.env.APP_URL;
   const airlineUri = flight.airline.toLowerCase().replace(' ', '%20');
@@ -89,7 +90,7 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
     		          	<td align='center' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse; vertical-align: top; text-align: center; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; height: 30px; margin: 0; padding: 0;' valign='top'>
     		              You are receiving this email because you are
     		              following this flight on <a href='http://flytime.is' style='color: #FF5722; text-decoration: none;'target='_blank'>flytime.is</a>.
-    									<br /><a href='http://flytime.is/unfollow/${follower}'style='color: #FF5722; text-decoration: none;'target='_blank'>Click here to unfollow</a>.
+    									<br /><a href='http://flytime.is/kef/${type}/${flightId}/unfollow/${follower}'style='color: #FF5722; text-decoration: none;'target='_blank'>Click here to unfollow</a>.
     		            </td>
     		          </tr>
     		        </table>

@@ -30,7 +30,7 @@ export default class Modal extends Component {
   render() {
     const { flight, type, isLoading } = this.props;
 
-    if (!flight && isLoading) {
+    if (!flight && isLoading || !flight.get('date')) {
       return (
         <div className={styles.container} onClick={(event) => this.handleClose(event)}>
           <div className={styles.loadingModal}>

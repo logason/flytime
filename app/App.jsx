@@ -41,10 +41,14 @@ export default class App extends Component {
 
   componentWillMount() {
     this.props.dispatch(flightActions.connectData(this.props.params.type));
+    const { flightId, type, email } = this.props.params;
 
-    if (this.props.params.flightId) {
-      const { flightId, type } = this.props.params;
+    if (flightId) {
       this.props.dispatch(modalActions.open({ flightId, flightType: type }));
+    }
+
+    if (flightId && email) {
+      this.props.dispatch(flightActions.unfollow(type, flightId, email));
     }
   }
 
