@@ -49,6 +49,7 @@ module.exports = (db) => {
 
           const successEmailSubject = `You are following flight ${flight.flightNum} on Flytime.is`;
           const successEmailBody = renderEmail(flight, type, email, true);
+          console.log(new Date(), email, flightId, 'follow');
           sendEmails(successEmailSubject, successEmailBody, [email]);
 
           res.status(201).send({ flightId, email, message: 'Follow success' });
@@ -84,6 +85,7 @@ module.exports = (db) => {
               return;
             }
             // XXX Return unfollow success page
+            console.log(new Date(), email, flightId, 'unfollow');
             res.status(200).send({ flightId, email, message: 'Unfollow success' });
             return;
           });

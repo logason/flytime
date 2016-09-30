@@ -24,6 +24,7 @@ const checkForUpdate = (flightType, updatedFlight, db) => {
         const followersList = data.val();
         if (followersList) {
           const email = renderEmail(newFlight, flightType);
+          console.log(new Date(), email, `${newFlight.flightNum}: ${newFlight.status}`);
           sendEmails(`${newFlight.flightNum}: ${newFlight.status}`, email, followersList);
 
           // Delete followers list if flight is finished
