@@ -9,7 +9,7 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
 
   const appUrl = process.env.APP_URL;
   const airlineUri = flight.airline.toLowerCase().replace(' ', '%20');
-  const airlineLogo = `${appUrl}/img/airlines/${airlineUri}.png`;
+  const airlineLogo = `${appUrl}/_assets/img/airlineLogos/${airlineUri}.png`;
   const isArrival = type === 'arrivals';
 
   let preHeader;
@@ -53,7 +53,7 @@ module.exports = (flight, type, follower, isFollowConfirmation) => {
     		        <table class='twelve columns' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;'>
     		          <tr align='left' class='twelve' style='vertical-align: top; text-align: left; padding: 0;'>
     		            <td align='center' class='flight-grahpic-container' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse; vertical-align: top; text-align: center; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; height: 30px; margin: 0; padding: 50px 90px 20px;' valign='top'>
-    									<img align='left' class='flight-grahpic' src='${appUrl}/img/flight.png' style='outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: 400px; max-width: 100%; float: left; clear: both; display: block; text-align: center;' width='200'>
+    									<img align='left' class='flight-grahpic' src='${appUrl}/_assets/img/flight.png' style='outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: 400px; max-width: 100%; float: left; clear: both; display: block; text-align: center;' width='200'>
     								</td>
     		          </tr>
     		        </table>
