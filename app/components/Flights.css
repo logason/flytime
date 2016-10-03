@@ -76,6 +76,16 @@
   text-align: center;
 }
 
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  text-align: center;
+  font-size: var(--font-size-small);
+  color: var(--color-grey);
+}
+
 @keyframes flight-loading {
   0% {
     transform: translateX(-30vw);

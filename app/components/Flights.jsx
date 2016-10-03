@@ -65,6 +65,11 @@ export default class Flights extends Component {
               />
           );
           })}
+          <tr>
+            <td className={styles.footer}>
+              Data gathered from <a href="http://kefairport.is/English/Timetables/" target="_blank">Kefairport.is</a>, <a href="http://isavia.is" target="_blank">Isavia ohf</a>. Use of this data is entirely at your own risk. <a href="https://github.com/logason/flytime" target="_blank">Created by Sölvi Logason</a>.
+            </td>
+          </tr>
         </tbody>
       </table>
     );
