@@ -17,14 +17,16 @@ const checkForUpdate = (flightType, updatedFlight, db) => {
   oldFlight = oldFlights[updatedFlight.key];
   const newFlight = updatedFlight.val();
 
-  if (oldFlight && newFlight && oldFlight.airline === newFlight.airline && oldFlight.flightNum === newFlight.flightNum) {
+  if (oldFlight && newFlight && oldFlight.id === newFlight.id) {
+    console.log(`${oldFlight.id}: ${oldFlight.status} -> ${newFlight.id}: ${newFlight.status}`)
     if (oldFlight.status !== newFlight.status) {
+      console.log(newFlight.id, 'Sending notification')
       const followersData = db.ref(`/followers/${newFlight.id}`);
       followersData.once('value', (data) => {
         const followersList = data.val();
         if (followersList) {
           const email = renderEmail(newFlight, flightType);
-          console.log(new Date(), email, `${newFlight.flightNum}: ${newFlight.status}`);
+          console.log(new Date(), followersList, `${newFlight.flightNum}: ${newFlight.status}`);
           sendEmails(`${newFlight.flightNum}: ${newFlight.status}`, email, followersList);
 
           // Delete followers list if flight is finished
