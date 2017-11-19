@@ -2,12 +2,8 @@
 
 .airlineLogo {
   position: relative;
-  width: 100px;
-  max-width: 60%;
-  height: 40px;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
+  max-width: 100px;
+  max-height: 36px;
 }
 
 .fallbackAirlineName {
@@ -16,4 +12,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .airlineLogo {
+    max-width: 40px;
+    max-height: 26px;
+  }
 }

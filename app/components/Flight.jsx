@@ -1,23 +1,22 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 
 import AirlineLogo from './AirlineLogo';
 
 import styles from './Flight.css';
 
 export default class Flight extends Component {
-
   static get propTypes() {
     return {
       flight: PropTypes.object,
       type: PropTypes.string,
-      modalActions: PropTypes.object,
+      modalActions: PropTypes.object
     };
   }
 
   render() {
-    const { flight } = this.props;
+    const {flight} = this.props;
 
     if (!flight.get('date')) {
       return null;
@@ -31,9 +30,10 @@ export default class Flight extends Component {
       <tr
         key={flight.get('id')}
         className={classNames(styles.flight, {
-          [styles['flight--over']]: flight.get('isOver'),
+          [styles['flight--over']]: flight.get('isOver')
         })}
-        onClick={() => this._handleOpenFlight(flight.get('isOver'), flight.get('id'))}
+        onClick={() =>
+          this._handleOpenFlight(flight.get('isOver'), flight.get('id'))}
       >
         <td className={styles.margin} />
         <td className={styles.date}>
@@ -41,18 +41,28 @@ export default class Flight extends Component {
             <div className={styles.date__today}>Today</div>
           ) : (
             <span>
-              <div className={styles.date__day}>{flight.get('date').split('. ')[0]}</div>
-              <div className={styles.date__month}>{flight.get('date').split('. ')[1]}</div>
+              <div className={styles.date__day}>
+                {flight.get('date').split('. ')[0]}
+              </div>
+              <div className={styles.date__month}>
+                {flight.get('date').split('. ')[1]}
+              </div>
             </span>
           )}
         </td>
         <td className={styles.scheduled}>{flight.get('scheduled')}</td>
         <td className={classNames(styles.airline, styles.expanded)}>
-          <AirlineLogo airline={flight.get('airline')} key={flight.get('flightNum')} />
+          <AirlineLogo airline={flight.get('airline')} />
         </td>
-        <td className={classNames(styles.flightNum, styles.expanded)}>{flight.get('flightNum')}</td>
-        <td className={classNames(styles.location, styles.expanded)}>{flight.get('location')}</td>
-        <td className={classNames(styles.status, styles.expanded)}>{flight.get('status')}</td>
+        <td className={classNames(styles.flightNum, styles.expanded)}>
+          {flight.get('flightNum')}
+        </td>
+        <td className={classNames(styles.location, styles.expanded)}>
+          {flight.get('location')}
+        </td>
+        <td className={classNames(styles.status, styles.expanded)}>
+          {flight.get('status')}
+        </td>
         <td className={classNames(styles.details)}>
           <div className={styles.detailsRow}>
             <div className={styles.airline}>
@@ -73,6 +83,6 @@ export default class Flight extends Component {
       return;
     }
     browserHistory.push(`/kef/${this.props.type}/${flightId}`);
-    this.props.modalActions.open({ flightId, flightType: this.props.type });
+    this.props.modalActions.open({flightId, flightType: this.props.type});
   }
 }

@@ -2,7 +2,6 @@ import keyMirror from 'keymirror';
 import createConstants from 'utils/createConstants';
 
 export default createConstants({
-
   FLIGHTS: keyMirror({
     UPDATE: null,
     GET: null,
@@ -12,21 +11,16 @@ export default createConstants({
     FOLLOW: null,
     FOLLOW_SUCCESS: null,
     UNFOLLOW: null,
-    UNFOLLOW_SUCCESS: null,
+    UNFOLLOW_SUCCESS: null
   }),
 
   SEARCH: keyMirror({
     SET_QUERY: null,
-    CLEAR: null,
+    CLEAR: null
   }),
 
   MODAL: keyMirror({
     OPEN: null,
-    CLOSE: null,
-  }),
-
-  LOGOS: keyMirror({
-    CHECK: null,
-  }),
-
+    CLOSE: null
+  })
 });
