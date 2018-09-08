@@ -10,8 +10,7 @@ export default class Flight extends Component {
   static get propTypes() {
     return {
       flight: PropTypes.object,
-      type: PropTypes.string,
-      modalActions: PropTypes.object
+      type: PropTypes.string
     };
   }
 
@@ -33,7 +32,8 @@ export default class Flight extends Component {
           [styles['flight--over']]: flight.get('isOver')
         })}
         onClick={() =>
-          this._handleOpenFlight(flight.get('isOver'), flight.get('id'))}
+          this._handleOpenFlight(flight.get('isOver'), flight.get('id'))
+        }
       >
         <td className={styles.margin} />
         <td className={styles.date}>
@@ -83,6 +83,5 @@ export default class Flight extends Component {
       return;
     }
     browserHistory.push(`/kef/${this.props.type}/${flightId}`);
-    this.props.modalActions.open({flightId, flightType: this.props.type});
   }
 }

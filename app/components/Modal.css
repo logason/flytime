@@ -11,10 +11,11 @@
   right: 0;
   bottom: 0;
   background: color(var(--color-text) alpha(40%));
-  cursor: pointer;
+  cursor: default;
 }
 
-.loadingModal, .errorModal {
+.loadingModal,
+.errorModal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +67,7 @@
   text-transform: uppercase;
   background: var(--color-orange);
 }
-.closeButton:hover {
+.closeButton:hover  {
   background: color(var(--color-orange) shade(50%));
 }
 
@@ -77,7 +78,6 @@
   justify-content: space-between;
   align-items: center;
   width: 90vw;
-  height: 80vh;
   max-width: 450px;
   max-height: 350px;
   background: var(--color-white);
@@ -95,7 +95,8 @@
   padding: 20px;
   transition: all var(--transition-time);
 }
-.close::before, .close::after {
+.close::before,
+.close::after {
   position: absolute;
   content: '';
   width: 20px;
@@ -108,7 +109,8 @@
 .close::after {
   transform: rotate(-45deg);
 }
-.close:hover::before, .close:hover::after {
+.close:hover::before,
+.close:hover::after {
   background: var(--color-orange);
 }
 .modal:hover .close {
@@ -189,6 +191,7 @@
 
 .followButton {
   display: block;
+  width: 100%;
   padding: 20px 0;
   background-color: var(--color-orange);
   color: var(--color-white);
@@ -198,10 +201,13 @@
   transition: all var(--transition-time);
   outline: 0;
 }
-.followButton:hover, .followButton:active {
+.followButton:hover,
+.followButton:active {
   background: color(var(--color-orange) shade(10%));
 }
-.followButton--disabled, .followButton--disabled:hover, .followButton--disabled:active {
+.followButton--disabled,
+.followButton--disabled:hover,
+.followButton--disabled:active {
   background: var(--color-grey);
   cursor: default;
 }
@@ -211,8 +217,7 @@
   padding: 15px 0;
 }
 
-@media(max-width: 600px) {
-
+@media (max-width: 600px) {
   .location {
     margin: 15px 0;
     font-size: var(--font-size-medium);
@@ -233,5 +238,4 @@
   .close {
     opacity: 1;
   }
-
 }
